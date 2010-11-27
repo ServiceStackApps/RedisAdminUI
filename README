@@ -1,6 +1,6 @@
 ServiceStack Web Services for Redis including the Redis Admin UI
 
-Note: if running via xsp you will want to change the 'DefaultRedirectPath' to:
+Note: if running via XSP you will want to change the 'DefaultRedirectPath' to:
 
 <add key="DefaultRedirectPath" value="AjaxClient/default.htm"/>
 
