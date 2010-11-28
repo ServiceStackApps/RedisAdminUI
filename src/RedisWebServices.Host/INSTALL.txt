@@ -32,7 +32,10 @@ http://www.go-mono.com/mono-downloads/download.html
 For a temp but immediate solution you can simply run mono's embedded appserver 'xsp' on the base directory (where the Web.config file is).
 This will run the application on port 8080 by default so you can run the application by opening the url:
 
-http://localhost:8080/RedisAdminUi/
+http://localhost:8080/AjaxClient/default.htm
+
+Note: When running via XSP you may want to change the 'DefaultRedirectPath' in Web.config to go to the url above by default, e.g:
+<add key="DefaultRedirectPath" value="AjaxClient/default.htm"/>
 
 
 For a more permanent solution you will want to configure mono and the application to run on your preferred web server.
