@@ -23,7 +23,7 @@ namespace RedisWebServices.ServiceModel.Operations.Common
 		}
 
 		[DataMember] 
-		public int Value { get; set; }
+		public long Value { get; set; }
 
 		[DataMember]
 		public ResponseStatus ResponseStatus { get; set; }
