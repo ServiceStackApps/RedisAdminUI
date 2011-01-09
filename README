@@ -1,4 +1,5 @@
 ServiceStack Web Services for Redis including the Redis Admin UI
+For twitter updates follow <a href="http://twitter.com/demisbellot">@demisbellot</a> or <a href="http://twitter.com/servicestack">@ServiceStack</a>
 
 Note: if running via XSP you will want to change the 'DefaultRedirectPath' to:
 
