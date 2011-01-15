@@ -3,11 +3,13 @@ follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http:/
 for twitter updates.
 
 #ServiceStack Redis Web Services including the Redis Admin UI
-Included is a ServiceStack web service layer for all of Redis operations.
+Included is a ServiceStack web service layer which provide JSON, XML, JSV and SOAP 1.1/1.2 for all of Redis operations.
+Just like the RedisAdminUI this allows you to fully manage your redis-server instance using javascript from a browser.
 
 ##Live Demo
 A live demo of the RedisAdminUI can be found here [http://servicestack.net/RedisAdminUI/AjaxClient/](http://servicestack.net/RedisAdminUI/AjaxClient/)
-View a live list of the [available web services](http://www.servicestack.net/RedisAdminUI/Public/Metadata).
+
+View the demos live list of the [available web services](http://www.servicestack.net/RedisAdminUI/Public/Metadata).
 
 
 #Download
