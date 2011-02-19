@@ -10,7 +10,7 @@ namespace RedisWebServices.ServiceInterface
 		{
 			RedisHostAddress = appConfig.Get("RedisHostAddress", "localhost:6379");
 			RedisDb = appConfig.Get("RedisDb", 0);
-			DefaultRedirectPath = appConfig.Get("DefaultRedirectPath", "Public/Metadata");
+			DefaultRedirectPath = appConfig.Get("DefaultRedirectPath", "AjaxClient/");
 		}
 
 		public string RedisHostAddress { get; set; }
