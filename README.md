@@ -13,10 +13,9 @@ View the demos live list of the [available web services](http://www.servicestack
 
 
 #Download
-[ServiceStack.RedisWebServices/downloads](https://github.com/mythz/ServiceStack.RedisWebServices/downloads)
+[ServiceStack.RedisWebServices/downloads](https://github.com/ServiceStack/ServiceStack.RedisWebServices/downloads)
 
 ##Troubleshooting
 Note: if running via XSP you will want to change the 'DefaultRedirectPath' to:
 
     <add key="DefaultRedirectPath" value="AjaxClient/default.htm"/>
-
