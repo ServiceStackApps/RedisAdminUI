@@ -63,6 +63,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>..\..\lib\ServiceStack.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.ServiceInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ServiceStack.ServiceInterface.dll</HintPath>
@@ -99,6 +102,7 @@
     <Compile Include="App\GetNorthwindDataService.cs" />
     <Compile Include="App\PopulateRedisWithDataService.cs" />
     <Compile Include="App\GetCodeGeneratedJavaScriptService.cs" />
+    <Compile Include="AuthenticatedClientFactory.cs" />
     <Compile Include="Common\AppendToValueService.cs" />
     <Compile Include="Common\ContainsKey.cs" />
     <Compile Include="Common\GetEntryTypesService.cs" />
