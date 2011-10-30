@@ -454,10 +454,10 @@ redisadmin.App.prototype.addChildNodes_ = function(parentNode, keysWithChildCoun
         var childCount = keysWithChildCounts[key];
         var childNode = parentNode.getTree().createNode();
 
-        var htmlCount = childCount > 1 ? "<em>(" + childCount + ")</em>" : "";
+        var htmlCount = childCount > 0 ? "<em>(" + childCount + ")</em>" : "";
         childNode.setHtml(key + htmlCount);
 
-        var hasChildrenToLoad = childCount > 1;
+        var hasChildrenToLoad = childCount > 0;
         childNode.nodeType = hasChildrenToLoad
                 ? redisadmin.App.NodeType.UNLOADED
                 : redisadmin.App.NodeType.KEY_GROUP;
@@ -622,7 +622,7 @@ redisadmin.App.prototype.fetchTypesForValidKeys = function(keysWithChildCounts, 
     var keysToFetch = [];
     for (var key in keysWithChildCounts)
     {
-        var isValidKey = keysWithChildCounts[key] == 1;
+        var isValidKey = keysWithChildCounts[key] == 0;
         if (isValidKey && !this.keyTypes[key])
         {
             keysToFetch.push(key);

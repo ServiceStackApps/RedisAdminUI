@@ -17,22 +17,20 @@ namespace RedisWebServices.ServiceInterface.Common
 
 			foreach (var key in keys)
 			{
-				var keyGroup = key;
 				if (key.IndexOf(baseKeyGroup) != -1)
 				{
 					var nextPos = key.IndexOf(':', baseKeyGroup.Length);
 					if (nextPos != -1)
 					{
-						keyGroup = key.Substring(0, nextPos);
-					}
-				}
-
+						var keyGroup = key.Substring(0, nextPos);
 				int keyGroupCount;
 				if (!keysMap.TryGetValue(keyGroup, out keyGroupCount))
-				{
 					keyGroupCount = 0;
+						keysMap[keyGroup] = ++keyGroupCount;
+					}
+					else
+						keysMap[key] = 0;
 				}
-				keysMap[keyGroup] = ++keyGroupCount;
 			}
 
 			var response = new SearchKeysGroupResponse();
