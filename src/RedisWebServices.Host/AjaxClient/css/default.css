@@ -220,6 +220,19 @@ BUTTON
 }
 
 
+#key-view TABLE 
+{
+    width: 100%;
+}
+#key-view TR:nth-child(even)
+{ 
+    background-color: #f3f3f3;
+}
+.filed-value
+{
+	color: #666;
+}
+
 #tab
 {
 }
@@ -297,22 +310,6 @@ H2.key
 .nav-link
 {
     color: #039;
-}
-
-DL
-{
-    padding: 5px;
-}
-DT
-{
-    float: left;
-    clear: left;
-    width: 150px;
-}
-DD
-{
-    float: left;
-    color: #666;
 }
 
 .icon-back
