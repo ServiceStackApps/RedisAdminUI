@@ -673,7 +673,7 @@ redisadmin.App.prototype.showKey = function(key, inNewTab)
         {
             $this.redis.getValue(key, function(value)
             {
-                $this.editor.showKeyDetails(key, value, true);
+                $this.editor.showKeyDetails(key, goog.json.serialize(value), true);
             });
         }
         else if (keyType == "List")

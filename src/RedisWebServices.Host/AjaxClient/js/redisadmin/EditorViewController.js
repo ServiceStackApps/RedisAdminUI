@@ -132,8 +132,11 @@ redisadmin.EditorViewController.prototype.showKeyDetails = function(key, textVal
     {
         var obj = goog.json.parse(textValue);
         html += "<div id='key-view'><table>";
+        if (typeof obj == "object")
         for (var k in obj)
-            html += "<tr><td>" + k + "</td><td class='filed-value'>" + Dto.formatValue(obj[k]) + "</td>";
+                html += "<tr><td>" + k + "</td><td class='filed-value'>" + Dto.formatValue(obj[k]) + "</td></tr>";
+        else
+            html += "<tr><td class='filed-value'>" + Dto.formatValue(obj) + "</td></tr>"
         html += "</table></div>";
     }
     catch (e) {
