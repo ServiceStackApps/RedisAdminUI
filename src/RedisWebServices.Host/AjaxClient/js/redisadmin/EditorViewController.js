@@ -131,16 +131,13 @@ redisadmin.EditorViewController.prototype.showKeyDetails = function(key, textVal
     try
     {
         var obj = goog.json.parse(textValue);
-
-        html += "<div id='key-view'>"
-              + "<dl>"
+        html += "<div id='key-view'><table>";
+        if (typeof obj == "object")
         for (var k in obj)
-        {
-            html += "<dt>" + k + "</dt>"
-                  + "<dd>" + Dto.formatValue(obj[k]) + "</dd>";
-        }
-        html += "</dl>"
-        + "</div>";
+                html += "<tr><td>" + k + "</td><td class='filed-value'>" + Dto.formatValue(obj[k]) + "</td></tr>";
+        else
+            html += "<tr><td class='filed-value'>" + Dto.formatValue(obj) + "</td></tr>"
+        html += "</table></div>";
     }
     catch (e) {
         this.log.warning("Error parsing key as json: " + key + ", Error: " + e);
