@@ -137,10 +137,10 @@ redisadmin.EditorViewController.prototype.showKeyDetails = function(key, textVal
         for (var k in obj)
         {
             html += "<dt>" + k + "</dt>"
-                  + "<dd>" + Dto.formatValue(obj[k]) + "</dd>";
+                  + "<dd class='jsonreport'>" + Dto.formatValue(obj[k]) + "</dd>";
         }
         html += "</dl>"
-        + "</div>";
+			+ "</div>";
     }
     catch (e) {
         this.log.warning("Error parsing key as json: " + key + ", Error: " + e);
