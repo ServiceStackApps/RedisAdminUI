@@ -31,8 +31,17 @@ namespace RedisWebServices.Host
 			var config = container.Resolve<AppConfig>();
 
 			var redisHosts = new[] { config.RedisHostAddress };
-			container.Register<IRedisClientsManager>(c =>
-				new BasicRedisClientManager(redisHosts, redisHosts, config.RedisDb));
+            container.Register<IRedisClientsManager>(c => 
+            {
+                var manager = new BasicRedisClientManager(redisHosts, redisHosts, config.RedisDb);
+
+                if (!string.IsNullOrEmpty(config.RedisPassword))
+                {
+                    manager.RedisClientFactory = new AuthenticatedClientFactory(config.RedisPassword);
+                }
+
+                return manager;
+            });
 
 			log.InfoFormat("AppHost Configured: " + DateTime.Now);
 		}
