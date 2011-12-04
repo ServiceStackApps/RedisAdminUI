@@ -30,6 +30,16 @@ namespace RedisWebServices.Tests
 			appHostBase.ExecuteService(request);
 		}
 
+		public void SendOneWay(string relativeOrAbsoluteUrl, object request)
+		{
+			appHostBase.ExecuteService(request);
+		}
+
+		public void SetCredentials(string userName, string password)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void GetAsync<TResponse>(string relativeOrAbsoluteUrl, Action<TResponse> onSuccess, Action<TResponse, Exception> onError)
 		{
 			throw new NotImplementedException();

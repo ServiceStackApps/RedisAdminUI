@@ -445,39 +445,58 @@ redisadmin.App.prototype.getChildKeys_ = function(parentNode)
     return childKeys;
 }
 
-redisadmin.App.prototype.addChildNodes_ = function(parentNode, keysWithChildCounts)
+redisadmin.App.prototype.addChildNodes_ = function (parentNode, keysWithChildCounts)
 {
-    var $this = this;
+	var $this = this;
 
-    for (var key in keysWithChildCounts)
-    {
-        var childCount = keysWithChildCounts[key];
-        var childNode = parentNode.getTree().createNode();
+	var parentKey = $this.getNodeLabel_(parentNode);
+	for (var key in keysWithChildCounts)
+	{
+		var childCount = keysWithChildCounts[key];
+		var childNode = parentNode.getTree().createNode();
 
-        var htmlCount = childCount > 1 ? "<em>(" + childCount + ")</em>" : "";
-        childNode.setHtml(key + htmlCount);
+		var htmlCount = childCount > 1 ? "<em>(" + childCount + ")</em>" : "";
+		childNode.setHtml(key + htmlCount);
 
-        var hasChildrenToLoad = childCount > 1;
-        childNode.nodeType = hasChildrenToLoad
+		var hasChildrenToLoad = childCount > 1;
+		childNode.nodeType = hasChildrenToLoad
                 ? redisadmin.App.NodeType.UNLOADED
                 : redisadmin.App.NodeType.KEY_GROUP;
 
-        if (hasChildrenToLoad) {
-            var loadingNode = parentNode.getTree().createNode();
-            loadingNode.setHtml("<span class='loading'>loading...</span>");
+		if (hasChildrenToLoad)
+		{
+			var loadingNode = parentNode.getTree().createNode();
+			loadingNode.setHtml("<span class='loading'>loading...</span>");
 
-            goog.events.listenOnce(childNode,
+			goog.events.listenOnce(childNode,
                 goog.ui.tree.BaseNode.EventType.BEFORE_EXPAND,
-                function (e) {
-                    $this.loadChildren_(e.currentTarget);
+                function (e)
+                {
+                	$this.loadChildren_(e.currentTarget);
                 }
             );
 
-            childNode.add(loadingNode);
-        }
+			childNode.add(loadingNode);
+		}
+		else if (childCount == 1)
+		{
+			//preload keys with a single child
+			(function (node) {
+				$this.redis.searchKeysGroup(key + ":*", function (keysWithChildCounts)
+				{
+					$this.fetchTypesForValidKeys(keysWithChildCounts, function ()
+					{
+						$this.updateNodeTypes_(node);
+					});
 
-        parentNode.add(childNode);
-    }
+					$this.addChildNodes_(node, keysWithChildCounts);
+					node.nodeType = redisadmin.App.NodeType.KEY_GROUP;
+				});
+			})(childNode);
+		}
+
+		parentNode.add(childNode);
+	}
 }
 
 redisadmin.App.prototype.loadChildren_ = function(parentNode, callbackFn)

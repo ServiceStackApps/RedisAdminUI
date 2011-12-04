@@ -1,5 +1,6 @@
-SET CL_PATH=../RedisWebServices.Host/closure-library
-SET APP_PATH=../RedisWebServices.Host/AjaxClient/
+@ECHO OFF
+SET CL_PATH=../src/RedisWebServices.Host/closure-library
+SET APP_PATH=../src/RedisWebServices.Host/AjaxClient/
 
 REM Different optimization levels for the Google Closure Library. 
 
