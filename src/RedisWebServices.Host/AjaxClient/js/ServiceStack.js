@@ -220,7 +220,7 @@ JsonServiceClient.ajax = function(s) {
         }
     });
 
-    if (s.cache === false && type === "GET" )
+    if (s.cache === false && s.type === "GET" )
     {
         var ts = (new Date).getTime();
         var ret = s.url.replace(rts, "$1_=" + ts + "$2");
