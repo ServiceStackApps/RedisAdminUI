@@ -25,7 +25,22 @@ namespace RedisWebServices.Tests
 			throw new NotImplementedException();
 		}
 
-		public void SendOneWay(object request)
+	    public TResponse PostFile<TResponse>(string relativeOrAbsoluteUrl, Stream fileToUpload, string fileName, string mimeType)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public TResponse PostFileWithRequest<TResponse>(string relativeOrAbsoluteUrl, FileInfo fileToUpload, object request)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public TResponse PostFileWithRequest<TResponse>(string relativeOrAbsoluteUrl, Stream fileToUpload, string fileName, object request)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void SendOneWay(object request)
 		{
 			appHostBase.ExecuteService(request);
 		}

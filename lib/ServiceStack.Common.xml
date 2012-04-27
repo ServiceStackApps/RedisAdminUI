@@ -105,6 +105,33 @@
             Need to provide async request options
             http://msdn.microsoft.com/en-us/library/86wf6409(VS.71).aspx
         </member>
+        <member name="F:ServiceStack.ServiceClient.Web.ServiceClientBase.httpWebRequestFilter">
+            <summary>
+            The request filter is called before any request.
+            This request filter is executed globally.
+            </summary>
+        </member>
+        <member name="F:ServiceStack.ServiceClient.Web.ServiceClientBase.httpWebResponseFilter">
+            <summary>
+            The response action is called once the server response is available.
+            It will allow you to access raw response information. 
+            This response action is executed globally.
+            Note that you should NOT consume the response stream as this is handled by ServiceStack
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceClient.Web.ServiceClientBase.SetBaseUri(System.String)">
+            <summary>
+            Sets all baseUri properties, using the Format property for the SyncReplyBaseUri and AsyncOneWayBaseUri
+            </summary>
+            <param name="baseUri">Base URI of the service</param>
+        </member>
+        <member name="M:ServiceStack.ServiceClient.Web.ServiceClientBase.SetBaseUri(System.String,System.String)">
+            <summary>
+            Sets all baseUri properties allowing for a temporary override of the Format property
+            </summary>
+            <param name="baseUri">Base URI of the service</param>
+            <param name="format">Override of the Format property for the service</param>
+        </member>
         <member name="M:ServiceStack.ServiceClient.Web.ServiceClientBase.SetCredentials(System.String,System.String)">
             <summary>
             Sets the username and the password for basic authentication.
@@ -113,20 +140,6 @@
         <member name="F:ServiceStack.ServiceClient.Web.ServiceClientBase.storeCookies">
             <summary>
             Specifies if cookies should be stored
-            </summary>
-        </member>
-        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.HttpWebRequestFilter">
-            <summary>
-            The request filter is called before any request.
-            This request filter is executed globally.
-            </summary>
-        </member>
-        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.HttpWebResponseFilter">
-            <summary>
-            The response action is called once the server response is available.
-            It will allow you to access raw response information. 
-            This response action is executed globally.
-            Note that you should NOT consume the response stream as this is handled by ServiceStack
             </summary>
         </member>
         <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.UserName">
@@ -152,13 +165,18 @@
             By default, the basic auth header is only sent when "401 Unauthorized" is returned.
             </summary>
         </member>
-        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.LocalHttpWebRequestFilter">
+        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.onAuthenticationRequired">
+            <summary>
+            Called before request resend, when the initial request required authentication
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.localHttpWebRequestFilter">
             <summary>
             The request filter is called before any request.
             This request filter only works with the instance where it was set (not global).
             </summary>
         </member>
-        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.LocalHttpWebResponseFilter">
+        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.localHttpWebResponseFilter">
             <summary>
             The response action is called once the server response is available.
             It will allow you to access raw response information. 
@@ -628,6 +646,44 @@
             Factory to create consumers and producers that work with this service
             </summary>
         </member>
+        <member name="M:ServiceStack.Common.Web.HttpResultExtensions.ToDto(System.Object)">
+            <summary>
+            Shortcut to get the ResponseDTO whether it's bare or inside a IHttpResult
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Common.Web.HttpResultExtensions.ToResponseDto(System.Object)">
+            <summary>
+            Alias of ToDto
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Common.Web.HttpResultExtensions.ToDto``1(System.Object)">
+            <summary>
+            Shortcut to get the ResponseDTO whether it's bare or inside a IHttpResult
+            </summary>
+            <param name="response"></param>
+            <returns>TResponse if found; otherwise null</returns>
+        </member>
+        <member name="M:ServiceStack.Common.Web.HttpResultExtensions.ToResponseDto``1(System.Object)">
+            <summary>
+            Alias of ToDto
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Common.Web.HttpResultExtensions.ToResponseStatus(System.Object)">
+            <summary>
+            Shortcut to get the ResponseStatus whether it's bare or inside a IHttpResult
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Common.Web.HttpResultExtensions.IsErrorResponse(System.Object)">
+            <summary>
+            Whether the response is an IHttpError or Exception
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
         <member name="P:ServiceStack.Messaging.Rcon.Packet.FromServer">
             <summary>
             True if the packet originated on the server.
@@ -761,6 +817,38 @@
         <member name="T:ServiceStack.ServiceClient.Web.AsyncServiceClient">
             Need to provide async request options
             http://msdn.microsoft.com/en-us/library/86wf6409(VS.71).aspx
+        </member>
+        <member name="P:ServiceStack.ServiceClient.Web.AsyncServiceClient.HttpWebRequestFilter">
+            <summary>
+            The request filter is called before any request.
+            This request filter is executed globally.
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceClient.Web.AsyncServiceClient.HttpWebResponseFilter">
+            <summary>
+            The response action is called once the server response is available.
+            It will allow you to access raw response information. 
+            This response action is executed globally.
+            Note that you should NOT consume the response stream as this is handled by ServiceStack
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceClient.Web.AsyncServiceClient.OnAuthenticationRequired">
+            <summary>
+            Called before request resend, when the initial request required authentication
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceClient.Web.AsyncServiceClient.LocalHttpWebRequestFilter">
+            <summary>
+            The request filter is called before any request.
+            This request filter only works with the instance where it was set (not global).
+            </summary>
+        </member>
+        <member name="P:ServiceStack.ServiceClient.Web.AsyncServiceClient.LocalHttpWebResponseFilter">
+            <summary>
+            The response action is called once the server response is available.
+            It will allow you to access raw response information. 
+            Note that you should NOT consume the response stream as this is handled by ServiceStack
+            </summary>
         </member>
     </members>
 </doc>

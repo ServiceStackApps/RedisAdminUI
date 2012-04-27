@@ -1874,6 +1874,18 @@
             <param name="cacheClient"></param>
             <param name="cacheKeys"></param>
         </member>
+        <member name="M:ServiceStack.ServiceHost.ContainerResolveCache.CreateInstance(System.Type)">
+            <summary>
+            Creates instance using straight Resolve approach.
+            This will throw an exception if resolution fails
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.ContainerResolveCache.CreateInstance(System.Type,System.Boolean)">
+            <summary>
+            Creates instance using the TryResolve approach if tryResolve = true.
+            Otherwise uses Resolve approach, which will throw an exception if resolution fails
+            </summary>
+        </member>
         <member name="T:ServiceStack.MiniProfiler.SqlFormatters.InlineFormatter">
             <summary>
             Formats any SQL query with inline parameters, optionally including the value type

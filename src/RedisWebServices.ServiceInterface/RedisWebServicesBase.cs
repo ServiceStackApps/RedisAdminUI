@@ -11,6 +11,8 @@ namespace RedisWebServices.ServiceInterface
 	public abstract class RedisServiceBase<TRequest>
 		: ServiceBase<TRequest>
 	{
+        public const string ResponseDtoSuffix = "Response";
+
 		public AppConfig Config { get; set; }
 
 		public IRedisClientsManager ClientsManager { get; set; }

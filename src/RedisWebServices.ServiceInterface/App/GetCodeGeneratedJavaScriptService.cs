@@ -183,7 +183,7 @@ RedisClient.prototype =
 				if (responseType != null)
 				{
 					var resultPropertyType = responseType.GetPublicProperties()
-						.Where(x => x.PropertyType != typeof(ResponseStatus)).FirstOrDefault();
+                        .FirstOrDefault(x => x.PropertyType != typeof(ResponseStatus));
 
 					if (resultPropertyType != null)
 					{
@@ -207,7 +207,7 @@ RedisClient.prototype =
 			sb.Append("};");
 			sb.AppendLine("goog.exportSymbol(\"RedisClient\", RedisClient);");
 
-			return new TextResult(sb, MimeTypes.JavaScript);
+			return new HttpResult(sb, MimeTypes.JavaScript);
 		}
 
 		public string GetValidArgument(PropertyInfo propertyInfo)
