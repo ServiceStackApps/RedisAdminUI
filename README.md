@@ -9,8 +9,11 @@ Just like the RedisAdminUI this allows you to fully manage your redis-server ins
 ##Live Demo
 A live demo of the RedisAdminUI can be found here [http://servicestack.net/RedisAdminUI/AjaxClient/](http://servicestack.net/RedisAdminUI/AjaxClient/)
 
-View the demos live list of the [available web services](http://www.servicestack.net/RedisAdminUI/servicestack/metadata).
+[![Demo Screenshot](http://www.servicestack.net/img/redisadmin-01.png)](http://servicestack.net/RedisAdminUI/AjaxClient)
 
+View the demos live list of the [available web services](http://www.servicestack.net/RedisAdminUI/redis/metadata).
+
+[![API Screenshot](http://www.servicestack.net/img/redisadmin-02.png)](http://www.servicestack.net/RedisAdminUI/redis/metadata)
 
 #Download
 [ServiceStack.RedisWebServices/downloads](https://github.com/ServiceStack/ServiceStack.RedisWebServices/downloads)
