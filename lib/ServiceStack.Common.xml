@@ -101,6 +101,18 @@
             leaving the implmentation in the 'Extensions' sub-namespace to force explicit opt-in
             </summary>
         </member>
+        <member name="M:ServiceStack.Common.Utils.ResponseStatusUtils.CreateResponseStatus(System.String,System.String,System.Collections.Generic.IEnumerable{ServiceStack.Validation.ValidationErrorField})">
+            <summary>
+            Creates the error response from the values provided.
+            
+            If the errorCode is empty it will use the first validation error code, 
+            if there is none it will throw an error.
+            </summary>
+            <param name="errorCode">The error code.</param>
+            <param name="errorMessage">The error message.</param>
+            <param name="validationErrors">The validation errors.</param>
+            <returns></returns>
+        </member>
         <member name="T:ServiceStack.ServiceClient.Web.ServiceClientBase">
             Need to provide async request options
             http://msdn.microsoft.com/en-us/library/86wf6409(VS.71).aspx
@@ -132,6 +144,21 @@
             <param name="baseUri">Base URI of the service</param>
             <param name="format">Override of the Format property for the service</param>
         </member>
+        <member name="F:ServiceStack.ServiceClient.Web.ServiceClientBase.disableAutoCompression">
+            <summary>
+            Whether to Accept Gzip,Deflate Content-Encoding and to auto decompress responses
+            </summary>
+        </member>
+        <member name="F:ServiceStack.ServiceClient.Web.ServiceClientBase.username">
+            <summary>
+            The user name for basic authentication
+            </summary>
+        </member>
+        <member name="F:ServiceStack.ServiceClient.Web.ServiceClientBase.password">
+            <summary>
+            The password for basic authentication
+            </summary>
+        </member>
         <member name="M:ServiceStack.ServiceClient.Web.ServiceClientBase.SetCredentials(System.String,System.String)">
             <summary>
             Sets the username and the password for basic authentication.
@@ -140,16 +167,6 @@
         <member name="F:ServiceStack.ServiceClient.Web.ServiceClientBase.storeCookies">
             <summary>
             Specifies if cookies should be stored
-            </summary>
-        </member>
-        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.UserName">
-            <summary>
-            The user name for basic authentication
-            </summary>
-        </member>
-        <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.Password">
-            <summary>
-            The password for basic authentication
             </summary>
         </member>
         <member name="P:ServiceStack.ServiceClient.Web.ServiceClientBase.Credentials">
@@ -213,6 +230,15 @@
             Process all messages pending
             </summary>
             <param name="mqClient"></param>
+        </member>
+        <member name="M:ServiceStack.Messaging.IMessageHandler.ProcessQueue(ServiceStack.Messaging.IMessageQueueClient,System.String,System.Func{System.Boolean})">
+            <summary>
+            Process messages from a single queue.
+            </summary>
+            <param name="mqClient"></param>
+            <param name="queueName">The queue to process</param>
+            <param name="doNext">A predicate on whether to continue processing the next message if any</param>
+            <returns></returns>
         </member>
         <member name="M:ServiceStack.Messaging.IMessageHandler.GetStats">
             <summary>
@@ -284,7 +310,7 @@
         </member>
         <member name="T:ServiceStack.Validation.ValidationError">
             <summary>
-            The exception which is thrown when a validation error occured.
+            The exception which is thrown when a validation error occurred.
             This validation is serialized in a extra clean and human-readable way by ServiceStack.
             </summary>
         </member>
@@ -299,6 +325,11 @@
             Returns the first error code
             </summary>
             <value>The error code.</value>
+        </member>
+        <member name="F:ServiceStack.ServiceClient.Web.WebRequestUtils.ResponseDtoSuffix">
+            <summary>
+            Naming convention for the request's Response DTO
+            </summary>
         </member>
         <member name="P:ServiceStack.ServiceClient.Web.WcfServiceClient.StoreCookies">
             <summary>
@@ -463,6 +494,14 @@
             to provide a detailed analysis of your logs.
             </summary>
         </member>
+        <member name="T:ServiceStack.ServiceClient.Web.UrlExtensions">
+            <summary>
+            Donated by Ivan Korneliuk from his post:
+            http://korneliuk.blogspot.com/2012/08/servicestack-reusing-dtos.html
+            
+            Modified to only allow using routes matching the supplied HTTP Verb
+            </summary>
+        </member>
         <member name="M:ServiceStack.Common.Reflection.StaticAccessors`1.TypedGetPropertyFn``1(System.Reflection.PropertyInfo)">
             <summary>
             Func to get the Strongly-typed field
@@ -568,6 +607,14 @@
             <summary>
             Gets the singleton <see cref="!:ClientIdentityMessageInspector"/> instance.
             </summary>
+        </member>
+        <member name="P:ServiceStack.Common.HostContext.Items">
+            <summary>
+            Gets a list of items for this request. 
+            </summary>
+            <remarks>This list will be cleared on every request and is specific to the original thread that is handling the request.
+            If a handler uses additional threads, this data will not be available on those threads.
+            </remarks>
         </member>
         <member name="M:ServiceStack.Common.Utils.PathUtils.MapProjectPath(System.String)">
             <summary>
@@ -709,6 +756,22 @@
             Serializer cache of delegates required to create a type from a string map (e.g. for REST urls)
             </summary>
         </member>
+        <member name="T:ServiceStack.Common.CryptUtils">
+            <summary>
+            Useful .NET Encryption Utils from:
+            http://andrewlocatelliwoodcock.com/2011/08/01/implementing-rsa-asymmetric-public-private-key-encryption-in-c-encrypting-under-the-public-key/
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Common.CryptUtils.Encrypt(System.String,System.String,ServiceStack.Common.RsaKeyLengths)">
+            <summary>
+            Encrypt an arbitrary string of data under the supplied public key
+            </summary>
+            <param name="publicKey">The public key to encrypt under</param>
+            <param name="data">The data to encrypt</param>
+            <param name="length">The bit length or strength of the public key: 1024, 2048 or 4096 bits. This must match the 
+            value actually used to create the publicKey</param>
+            <returns></returns>
+        </member>
         <member name="T:ServiceStack.Messaging.Rcon.PacketCodec">
             <summary>
             Contains methods required for encoding and decoding rcon packets.
@@ -784,6 +847,16 @@
         <member name="M:ServiceStack.Common.Reflection.PropertyAccessor`1.UnTypedSetPropertyFn``1">
             <summary>
             Required to cast the ValueType to an object for caching
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Common.RequestContextExtensions.SetItem(ServiceStack.ServiceHost.IRequestContext,System.String,System.Object)">
+            <summary>
+            Store an entry in the IHttpRequest.Items Dictionary
+            </summary>
+        </member>
+        <member name="M:ServiceStack.Common.RequestContextExtensions.GetItem(ServiceStack.ServiceHost.IRequestContext,System.String)">
+            <summary>
+            Get an entry from the IHttpRequest.Items Dictionary
             </summary>
         </member>
         <member name="T:ServiceStack.Common.UrnId">

@@ -42,11 +42,16 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:ServiceStack.Markdown.MarkdownViewBase.TryResolve``1">
+        <member name="M:ServiceStack.Markdown.MarkdownViewBase.Get``1">
             <summary>
             Resolve registered Assemblies
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:ServiceStack.Markdown.MarkdownViewBase.ViewEngine">
+            <summary>
+            Reference to MarkdownViewEngine
+            </summary>
         </member>
         <member name="P:ServiceStack.Markdown.MarkdownViewBase.AppHost">
             <summary>
@@ -115,6 +120,27 @@
             Provide for quick lookups based on hashes that can be determined from a request url
             </summary>
         </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.CacheClientExtensions.RemoveByPattern(ServiceStack.CacheAccess.ICacheClient,System.String)">
+            <summary>
+            Removes items from cache that have keys matching the specified wildcard pattern
+            </summary>
+            <param name="cacheClient">Cache client</param>
+            <param name="pattern">The wildcard, where "*" means any sequence of characters and "?" means any single character.</param>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.CacheClientExtensions.RemoveByRegex(ServiceStack.CacheAccess.ICacheClient,System.String)">
+            <summary>
+            Removes items from the cache based on the specified regular expression pattern
+            </summary>
+            <param name="cacheClient">Cache client</param>
+            <param name="regex">Regular expression pattern to search cache keys</param>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.EndpointHost.ApplyPreRequestFilters(ServiceStack.ServiceHost.IHttpRequest,ServiceStack.ServiceHost.IHttpResponse)">
+            <summary>
+            Applies the raw request filters. Returns whether or not the request has been handled 
+            and no more processing should be done.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:ServiceStack.WebHost.Endpoints.EndpointHost.ApplyRequestFilters(ServiceStack.ServiceHost.IHttpRequest,ServiceStack.ServiceHost.IHttpResponse,System.Object)">
             <summary>
             Applies the request filters. Returns whether or not the request has been handled 
@@ -128,6 +154,16 @@
             and no more processing should be done.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.EndpointHost.CompleteRequest">
+            <summary>
+            Call to signal the completion of a ServiceStack-handled Request
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.EndpointHost.Container">
+            <summary>
+            The AppHost.Container. Note: it is not thread safe to register dependencies after AppStart.
+            </summary>
         </member>
         <member name="T:ServiceStack.WebHost.Endpoints.AppHostHttpListenerBase">
             <summary>
@@ -171,6 +207,11 @@
             </summary>
             <param name="instance"></param>
         </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.OnEndRequest">
+            <summary>
+            Called at the end of each request. Enables Request Scope.
+            </summary>
+        </member>
         <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.RegisterService(System.Type,System.String[])">
             <summary>
             Register an Adhoc web service on Startup
@@ -184,9 +225,24 @@
             </summary>
             <param name="plugins"></param>
         </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.IAppHost.CreateServiceRunner``1(ServiceStack.WebHost.Endpoints.ActionContext)">
+            <summary>
+            Create a service runner for IService actions
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.Routes">
+            <summary>
+            Register user-defined custom routes.
+            </summary>
+        </member>
         <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ContentTypeFilters">
             <summary>
             Register custom ContentType serializers
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.PreRequestFilters">
+            <summary>
+            Add Request Filters, to be applied before the dto is deserialized
             </summary>
         </member>
         <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.RequestFilters">
@@ -199,9 +255,19 @@
             Add Response Filters
             </summary>
         </member>
-        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.HtmlProviders">
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ViewEngines">
             <summary>
             Add alternative HTML View Engines
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ExceptionHandler">
+            <summary>
+            Provide an exception handler for un-caught exceptions
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.ServiceExceptionHandler">
+            <summary>
+            Provide an exception handler for unhandled exceptions
             </summary>
         </member>
         <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.CatchAllHandlers">
@@ -219,6 +285,16 @@
             The AppHost config
             </summary>
         </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.Plugins">
+            <summary>
+            List of pre-registered and user-defined plugins to be enabled in this AppHost
+            </summary>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.IAppHost.VirtualPathProvider">
+            <summary>
+            Virtual access to file resources
+            </summary>
+        </member>
         <member name="M:ServiceStack.WebHost.Endpoints.Support.HttpListenerBase.Start(System.String)">
             <summary>
             Starts the Web Service
@@ -226,7 +302,7 @@
             <param name="urlBase">
             A Uri that acts as the base that the server is listening on.
             Format should be: http://127.0.0.1:8080/ or http://127.0.0.1:8080/somevirtual/
-            Note: the trailing backslash is required! For more info see the
+            Note: the trailing slash is required! For more info see the
             HttpListener.Prefixes property on MSDN.
             </param>
         </member>
@@ -240,6 +316,9 @@
             Overridable method that can be used to implement a custom hnandler
             </summary>
             <param name="context"></param>
+        </member>
+        <member name="P:ServiceStack.WebHost.Endpoints.Support.HttpListenerBase.Plugins">
+            TODO: plugin added with .Add method after host initialization won't be configured. Each plugin should have state so we can invoke Register method if host was already started.  
         </member>
         <member name="T:ServiceStack.Properties.Resources">
             <summary>
@@ -447,11 +526,6 @@
             then convert it to structurally valid XHTML (or HTML).
             </summary>
         </member>
-        <member name="F:MarkdownSharp.Markdown._nestDepth">
-            <summary>
-            maximum nested depth of [] and () supported by the transform; implementation detail
-            </summary>
-        </member>
         <member name="F:MarkdownSharp.Markdown._tabWidth">
             <summary>
             Tabs are automatically converted to spaces as part of the transform  
@@ -480,6 +554,11 @@
         <member name="M:MarkdownSharp.Markdown.#ctor(MarkdownSharp.MarkdownOptions)">
             <summary>
             Create a new Markdown instance and set the options from the MarkdownOptions object.
+            </summary>
+        </member>
+        <member name="F:MarkdownSharp.Markdown._nestDepth">
+            <summary>
+            maximum nested depth of [] and () supported by the transform; implementation detail
             </summary>
         </member>
         <member name="M:MarkdownSharp.Markdown.#cctor">
@@ -1073,13 +1152,14 @@
             This will be made private; use <see cref="P:ServiceStack.MiniProfiler.Data.ProfiledDbConnection.Profiler"/>
             </summary>
         </member>
-        <member name="M:ServiceStack.MiniProfiler.Data.ProfiledDbConnection.#ctor(System.Data.Common.DbConnection,ServiceStack.MiniProfiler.Data.IDbProfiler)">
+        <member name="M:ServiceStack.MiniProfiler.Data.ProfiledDbConnection.#ctor(System.Data.Common.DbConnection,ServiceStack.MiniProfiler.Data.IDbProfiler,System.Boolean)">
             <summary>
             Returns a new <see cref="T:ServiceStack.MiniProfiler.Data.ProfiledDbConnection"/> that wraps <paramref name="connection"/>, 
             providing query execution profiling.  If profiler is null, no profiling will occur.
             </summary>
             <param name="connection">Your provider-specific flavor of connection, e.g. SqlConnection, OracleConnection</param>
             <param name="profiler">The currently started <see cref="T:ServiceStack.MiniProfiler.Profiler"/> or null.</param>
+            <param name="autoDisposeConnection">Determines whether the ProfiledDbConnection will dispose the underlying connection.</param>
         </member>
         <member name="P:ServiceStack.MiniProfiler.Data.ProfiledDbConnection.InnerConnection">
             <summary>
@@ -1128,7 +1208,7 @@
             The Func delegate that creates instances of the service.
             </summary>
         </member>
-        <member name="F:Funq.ServiceEntry`2.Instance">
+        <member name="F:Funq.ServiceEntry`2.instance">
             <summary>
             The cached service instance if the scope is <see cref="F:Funq.ReuseScope.Hierarchy"/> or 
             <see cref="F:Funq.ReuseScope.Container"/>.
@@ -1142,7 +1222,7 @@
         <member name="M:Funq.ServiceEntry`2.CloneFor(Funq.Container)">
             <summary>
             Clones the service entry assigning the <see cref="T:Funq.Container"/> to the 
-            <paramref name="newContainer"/>. Does not copy the <see cref="F:Funq.ServiceEntry`2.Instance"/>.
+            <paramref name="newContainer"/>. Does not copy the <see cref="P:Funq.ServiceEntry`2.Instance"/>.
             </summary>
         </member>
         <member name="M:ServiceStack.ServiceHost.HttpResponseExtensions.SetPermanentCookie(ServiceStack.ServiceHost.IHttpResponse,System.String,System.String)">
@@ -1215,6 +1295,11 @@
             instance being returned.
             </summary>
         </member>
+        <member name="F:Funq.ReuseScope.Request">
+            <summary>
+            Instaces are reused within the given request
+            </summary>
+        </member>
         <member name="F:Funq.ReuseScope.Default">
             <summary>
             Default scope, which equals <see cref="F:Funq.ReuseScope.Hierarchy"/>.
@@ -1253,6 +1338,16 @@
             <summary>
             Use this to treat Request.Items[] as a cache by returning pre-computed items to save 
             calculating them multiple times.
+            </summary>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.Extensions.HttpRequestExtensions.SetItem(ServiceStack.ServiceHost.IHttpRequest,System.String,System.Object)">
+            <summary>
+            Store an entry in the IHttpRequest.Items Dictionary
+            </summary>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.Extensions.HttpRequestExtensions.GetItem(ServiceStack.ServiceHost.IHttpRequest,System.String)">
+            <summary>
+            Get an entry from the IHttpRequest.Items Dictionary
             </summary>
         </member>
         <member name="T:ServiceStack.MiniProfiler.SqlTiming">
@@ -2366,6 +2461,24 @@
             More familiar name for the new crowd.
             </summary>
         </member>
+        <member name="M:ServiceStack.Configuration.AppSettings.GetString(System.String)">
+            <summary>
+            Returns string if exists, otherwise null
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.Configuration.ISettings.Get(System.String)">
+            <summary>
+            Provides a common interface for Settings providers such as
+            ConfigurationManager or Azure's RoleEnvironment. The only
+            requirement is that if the implementation cannot find the
+            specified key, the return value must be null
+            </summary>
+            <param name="key">The key for the setting</param>
+            <returns>The string value of the specified key, or null if the key
+            was invalid</returns>
+        </member>
         <member name="T:ServiceStack.WebHost.Endpoints.Ext.AllFilesHandler">
             <summary>
             Summary description for $codebehindclassname$
@@ -2375,24 +2488,6 @@
             <summary>
             Render Markdown for text/markdown and text/plain ContentTypes
             </summary>
-        </member>
-        <member name="M:ServiceStack.ServiceHost.ServiceOperations.GetBaseTypeWithTheSameName(System.Type)">
-            <summary>
-            Gets the name of the base most type in the heirachy tree with the same.
-            
-            We get an exception when trying to create a schema with multiple types of the same name
-            like when inheriting from a DataContract with the same name.
-            </summary>
-            <param name="type">The type.</param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.ServiceHost.ServiceOperations.LoadOperationTypes(System.Collections.Generic.IEnumerable{System.Type})">
-            <summary>
-            Loads the operation types into a dictionary.
-            If there are multiple operation types with the same name,
-            the operation type that is last will be the one 'discoverable' via the service.
-            </summary>
-            <param name="operationTypes">The operation types.</param>
         </member>
         <member name="M:ServiceStack.ServiceHost.HttpRequestExtensions.GetItemOrCookie(ServiceStack.ServiceHost.IHttpRequest,System.String)">
             <summary>
@@ -2549,356 +2644,6 @@
              type specified by the <typeparamref name="TResult"/> parameter.
             </summary>
         </member>
-        <member name="T:ServiceStack.Data.SqlMapper">
-            <summary>
-            Dapper, a light weight object mapper for ADO.NET
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Execute(System.Data.IDbConnection,System.String,System.Object)">
-            <summary>
-            Execute parameterized SQL  
-            </summary>
-            <returns>Number of rows affected</returns>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:ServiceStack.Data.SqlMapper.Query``1(System.Data.IDbConnection,System.String,System.Object)" -->
-        <member name="M:ServiceStack.Data.SqlMapper.Execute(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Execute parameterized SQL  
-            </summary>
-            <returns>Number of rows affected</returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Query``1(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Executes a query, returning the data typed as per T
-            </summary>
-            <remarks>the dynamic param may seem a bit odd, but this works around a major usability issue in vs, if it is Object vs completion gets annoying. Eg type new [space] get new object</remarks>
-            <returns>A sequence of data of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
-            created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
-            </returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.QueryMultiple(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Execute a command that returns multiple result sets, and access each in turn
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.QueryInternal``1(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Return a typed list of objects, reader is closed after the call
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Query``3(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Maps a query to objects
-            </summary>
-            <typeparam name="TFirst">The first type in the recordset</typeparam>
-            <typeparam name="TSecond">The second type in the recordset</typeparam>
-            <typeparam name="TReturn">The return type</typeparam>
-            <param name="cnn"></param>
-            <param name="sql"></param>
-            <param name="map"></param>
-            <param name="param"></param>
-            <param name="transaction"></param>
-            <param name="buffered"></param>
-            <param name="splitOn">The Field we should split and read the second object from (default: id)</param>
-            <param name="commandTimeout">Number of seconds before command execution timeout</param>
-            <param name="commandType">Is it a stored proc or a batch?</param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Query``4(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2,``3},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Maps a query to objects
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="cnn"></param>
-            <param name="sql"></param>
-            <param name="map"></param>
-            <param name="param"></param>
-            <param name="transaction"></param>
-            <param name="buffered"></param>
-            <param name="splitOn">The Field we should split and read the second object from (default: id)</param>
-            <param name="commandTimeout">Number of seconds before command execution timeout</param>
-            <param name="commandType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Query``5(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2,``3,``4},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Perform a multi mapping query with 4 input parameters
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TFourth"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="cnn"></param>
-            <param name="sql"></param>
-            <param name="map"></param>
-            <param name="param"></param>
-            <param name="transaction"></param>
-            <param name="buffered"></param>
-            <param name="splitOn"></param>
-            <param name="commandTimeout"></param>
-            <param name="commandType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.ReadChar(System.Object)">
-            <summary>
-            Internal use only
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.ReadNullableChar(System.Object)">
-            <summary>
-            Internal use only
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.PackListParameters(System.Data.IDbCommand,System.String,System.Object)">
-            <summary>
-            Internal use only
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.CreateParamInfoGenerator(ServiceStack.Data.SqlMapper.Identity)">
-            <summary>
-            Internal use only
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.GetTypeDeserializer(System.Type,System.Data.IDataReader,System.Int32,System.Int32,System.Boolean)">
-            <summary>
-            Internal use only
-            </summary>
-            <param name="type"></param>
-            <param name="reader"></param>
-            <param name="startBound"></param>
-            <param name="length"></param>
-            <param name="returnNullIfFirstMissing"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.ThrowDataException(System.Exception,System.Int32,System.Data.IDataReader)">
-            <summary>
-            Throws a data exception, only used internally
-            </summary>
-            <param name="ex"></param>
-            <param name="index"></param>
-            <param name="reader"></param>
-        </member>
-        <member name="E:ServiceStack.Data.SqlMapper.QueryCachePurged">
-            <summary>
-            Called if the query cache is purged via PurgeQueryCache
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Data.SqlMapper.IDynamicParameters">
-            <summary>
-            Implement this interface to pass an arbitrary db specific set of parameters to Dapper
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.IDynamicParameters.AddParameters(System.Data.IDbCommand,ServiceStack.Data.SqlMapper.Identity)">
-            <summary>
-            Add all the parameters needed to the command just before it executes
-            </summary>
-            <param name="command">The raw command prior to execution</param>
-            <param name="identity">Information about the query</param>
-        </member>
-        <member name="T:ServiceStack.Data.SqlMapper.Link`2">
-            <summary>
-            This is a micro-cache; suitable when the number of terms is controllable (a few hundred, for example),
-            and strictly append-only; you cannot change existing values. All key matches are on **REFERENCE**
-            equality. The type is fully thread-safe.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Data.SqlMapper.Identity">
-            <summary>
-            Identity of a cached query in Dapper, used for extensability
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Identity.ForDynamicParameters(System.Type)">
-            <summary>
-            Create an identity for use with DynamicParameters, internal use only
-            </summary>
-            <param name="type"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Identity.Equals(System.Object)">
-            <summary>
-            
-            </summary>
-            <param name="obj"></param>
-            <returns></returns>
-        </member>
-        <member name="F:ServiceStack.Data.SqlMapper.Identity.sql">
-            <summary>
-            The sql
-            </summary>
-        </member>
-        <member name="F:ServiceStack.Data.SqlMapper.Identity.commandType">
-            <summary>
-            The command type 
-            </summary>
-        </member>
-        <member name="F:ServiceStack.Data.SqlMapper.Identity.hashCode">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ServiceStack.Data.SqlMapper.Identity.gridIndex">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ServiceStack.Data.SqlMapper.Identity.connectionString">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:ServiceStack.Data.SqlMapper.Identity.parametersType">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Identity.GetHashCode">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.Identity.Equals(ServiceStack.Data.SqlMapper.Identity)">
-            <summary>
-            Compare 2 Identity objects
-            </summary>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="T:ServiceStack.Data.SqlMapper.GridReader">
-            <summary>
-            The grid reader provides interfaces for reading multiple result sets from a Dapper query 
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.GridReader.Read``1">
-            <summary>
-            Read the next grid of results
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.GridReader.Read``3(System.Func{``0,``1,``2},System.String)">
-            <summary>
-            Read multiple objects from a single recordset on the grid
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="func"></param>
-            <param name="splitOn"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.GridReader.Read``4(System.Func{``0,``1,``2,``3},System.String)">
-            <summary>
-            Read multiple objects from a single recordset on the grid
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="func"></param>
-            <param name="splitOn"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.GridReader.Read``5(System.Func{``0,``1,``2,``3,``4},System.String)">
-            <summary>
-            Read multiple objects from a single record set on the grid
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TFourth"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="func"></param>
-            <param name="splitOn"></param>
-            <returns></returns>
-        </member>
-        <member name="M:ServiceStack.Data.SqlMapper.GridReader.Dispose">
-            <summary>
-            Dispose the grid, closing and disposing both the underlying reader and command.
-            </summary>
-        </member>
-        <member name="T:ServiceStack.Data.DynamicParameters">
-            <summary>
-            A bag of parameters that can be passed to the Dapper Query and Execute methods
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.DynamicParameters.#ctor">
-            <summary>
-            construct a dynamic parameter bag
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.DynamicParameters.#ctor(System.Object)">
-            <summary>
-            construct a dynamic parameter bag
-            </summary>
-            <param name="template">can be an anonymous type of a DynamicParameters bag</param>
-        </member>
-        <member name="M:ServiceStack.Data.DynamicParameters.AddDynamicParams(System.Object)">
-            <summary>
-            Append a whole object full of params to the dynamic
-            EG: AddParams(new {A = 1, B = 2}) // will add property A and B to the dynamic
-            </summary>
-            <param name="param"></param>
-        </member>
-        <member name="M:ServiceStack.Data.DynamicParameters.Add(System.String,System.Object,System.Nullable{System.Data.DbType},System.Nullable{System.Data.ParameterDirection},System.Nullable{System.Int32})">
-            <summary>
-            Add a parameter to this dynamic parameter list
-            </summary>
-            <param name="name"></param>
-            <param name="value"></param>
-            <param name="dbType"></param>
-            <param name="direction"></param>
-            <param name="size"></param>
-        </member>
-        <member name="M:ServiceStack.Data.DynamicParameters.Get``1(System.String)">
-            <summary>
-            Get the value of a parameter
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="name"></param>
-            <returns>The value, note DBNull.Value is not returned, instead the value is returned as null</returns>
-        </member>
-        <member name="T:ServiceStack.Data.DbString">
-            <summary>
-            This class represents a SQL string, it can be used if you need to denote your parameter is a Char vs VarChar vs nVarChar vs nChar
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.DbString.#ctor">
-            <summary>
-            Create a new DbString
-            </summary>
-        </member>
-        <member name="M:ServiceStack.Data.DbString.AddParameter(System.Data.IDbCommand,System.String)">
-            <summary>
-            Add the parameter to the command... internal use only
-            </summary>
-            <param name="command"></param>
-            <param name="name"></param>
-        </member>
-        <member name="P:ServiceStack.Data.DbString.IsAnsi">
-            <summary>
-            Ansi vs Unicode 
-            </summary>
-        </member>
-        <member name="P:ServiceStack.Data.DbString.IsFixedLength">
-            <summary>
-            Fixed length 
-            </summary>
-        </member>
-        <member name="P:ServiceStack.Data.DbString.Length">
-            <summary>
-            Length of the string -1 for max
-            </summary>
-        </member>
-        <member name="P:ServiceStack.Data.DbString.Value">
-            <summary>
-            The value of the string
-            </summary>
-        </member>
         <member name="M:ServiceStack.WebHost.Endpoints.Support.IndexPageHttpHandler.ProcessRequest(ServiceStack.ServiceHost.IHttpRequest,ServiceStack.ServiceHost.IHttpResponse,System.String)">
             <summary>
             Non ASP.NET requests
@@ -2949,6 +2694,16 @@
             ASP.NET requests
             </summary>
             <param name="context"></param>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.XsdMetadata.GetBaseTypeWithTheSameName(System.Type)">
+            <summary>
+            Gets the name of the base most type in the heirachy tree with the same.
+            
+            We get an exception when trying to create a schema with multiple types of the same name
+            like when inheriting from a DataContract with the same name.
+            </summary>
+            <param name="type">The type.</param>
+            <returns></returns>
         </member>
         <member name="T:ServiceStack.MiniProfiler.Storage.IStorage">
             <summary>
@@ -3148,73 +2903,35 @@
             </summary>
             <param name="serviceTypes"></param>
         </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.AppHostHttpListenerLongRunningBase.Start(System.String)">
+            <summary>
+            Starts the Web Service
+            </summary>
+            <param name="urlBase">
+            A Uri that acts as the base that the server is listening on.
+            Format should be: http://127.0.0.1:8080/ or http://127.0.0.1:8080/somevirtual/
+            Note: the trailing slash is required! For more info see the
+            HttpListener.Prefixes property on MSDN.
+            </param>
+        </member>
+        <member name="M:ServiceStack.WebHost.Endpoints.AppHostHttpListenerLongRunningBase.ThreadPoolManager.Dispose">
+            <summary>
+            Exécute les tâches définies par l'application associées à la libération ou à la redéfinition des ressources non managées.
+            </summary>
+            <filterpriority>2</filterpriority>
+        </member>
         <member name="T:ServiceStack.WebHost.Endpoints.AppHostBase">
             <summary>
             Inherit from this class if you want to host your web services inside an
             ASP.NET application.
             </summary>
         </member>
-        <member name="T:ServiceStack.MiniProfiler.Storage.SqlServerStorage">
+        <member name="M:ServiceStack.WebHost.Endpoints.AppHostBase.Resolve``1">
             <summary>
-            Understands how to store a <see cref="T:ServiceStack.MiniProfiler.Profiler"/> to a MSSQL database.
+            Resolves from IoC container a specified type instance.
             </summary>
-        </member>
-        <member name="F:ServiceStack.MiniProfiler.Storage.SqlServerStorage.TableCreationScript">
-            <summary>
-            Creates needed tables. Run this once on your database.
-            </summary>
-            <remarks>
-            Works in sql server and sqlite (with documented removals).
-            TODO: add indexes
-            </remarks>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.#ctor(System.String)">
-            <summary>
-            Returns a new <see cref="T:ServiceStack.MiniProfiler.Storage.SqlServerStorage"/>.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.Save(ServiceStack.MiniProfiler.Profiler)">
-            <summary>
-            Stores <param name="profiler"/> to dbo.MiniProfilers under its <see cref="P:ServiceStack.MiniProfiler.Profiler.Id"/>; 
-            stores all child Timings and SqlTimings to their respective tables.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.SaveTiming(System.Data.Common.DbConnection,ServiceStack.MiniProfiler.Profiler,ServiceStack.MiniProfiler.Timing)">
-            <summary>
-            Saves parameter Timing to the dbo.MiniProfilerTimings table.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.SaveSqlTiming(System.Data.Common.DbConnection,ServiceStack.MiniProfiler.Profiler,ServiceStack.MiniProfiler.SqlTiming)">
-            <summary>
-            Saves parameter SqlTiming to the dbo.MiniProfilerSqlTimings table.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.SaveSqlTimingParameters(System.Data.Common.DbConnection,ServiceStack.MiniProfiler.Profiler,ServiceStack.MiniProfiler.SqlTiming)">
-            <summary>
-            Saves any SqlTimingParameters used in the profiled SqlTiming to the dbo.MiniProfilerSqlTimingParameters table.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.Load(System.Guid)">
-            <summary>
-            Loads the MiniProfiler identifed by 'id' from the database.
-            </summary>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.GetUnviewedIds(System.String)">
-            <summary>
-            Returns a list of <see cref="P:ServiceStack.MiniProfiler.Profiler.Id"/>s that haven't been seen by <paramref name="user"/>.
-            </summary>
-            <param name="user">User identified by the current <see cref="P:ServiceStack.MiniProfiler.Profiler.Settings.UserProvider"/>.</param>
-        </member>
-        <member name="M:ServiceStack.MiniProfiler.Storage.SqlServerStorage.GetConnection">
-            <summary>
-            Returns a connection to Sql Server.
-            </summary>
-        </member>
-        <member name="P:ServiceStack.MiniProfiler.Storage.SqlServerStorage.EnableBatchSelects">
-            <summary>
-            A full install of Sql Server can return multiple result sets in one query, allowing the use of <see cref="M:ServiceStack.Data.SqlMapper.QueryMultiple(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})"/>.
-            However, Sql Server CE and Sqlite cannot do this, so inheritors for those providers can return false here.
-            </summary>
+            <typeparam name="T">Type to be resolved.</typeparam>
+            <returns>Instance of <typeparamref name="T"/>.</returns>
         </member>
         <member name="T:ServiceStack.MiniProfiler.Data.ExecuteType">
             <summary>
@@ -3269,6 +2986,44 @@
             </summary>
             <param name="defaultFilePath"></param>
         </member>
+        <member name="F:ServiceStack.ServiceHost.DtoUtils.ResponseStatusPropertyName">
+            <summary>
+            Naming convention for the ResponseStatus property name on the response DTO
+            </summary>
+        </member>
+        <member name="F:ServiceStack.ServiceHost.DtoUtils.UrnServiceErrorType">
+            <summary>
+            Service error logs are kept in 'urn:ServiceErrors:{ServiceName}'
+            </summary>
+        </member>
+        <member name="F:ServiceStack.ServiceHost.DtoUtils.CombinedServiceLogId">
+            <summary>
+            Combined service error logs are maintained in 'urn:ServiceErrors:All'
+            </summary>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.DtoUtils.CreateResponseDto(System.Object,ServiceStack.ServiceInterface.ServiceModel.ResponseStatus)">
+            <summary>
+            Create an instance of the service response dto type and inject it with the supplied responseStatus
+            </summary>
+            <param name="request"></param>
+            <param name="responseStatus"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.DtoUtils.HandleException(ServiceStack.ServiceHost.IResolver,System.Object,System.Exception)">
+            <summary>
+            
+            </summary>
+            <param name="iocResolver"></param>
+            <param name="request"></param>
+            <param name="ex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.ServiceHost.DtoUtils.GetRequestErrorBody(System.Object)">
+            <summary>
+            Override to provide additional/less context about the Service Exception. 
+            By default the request is serialized and appended to the ResponseStatus StackTrace.
+            </summary>
+        </member>
         <member name="T:ServiceStack.MiniProfiler.SqlTimingParameter">
             <summary>
             Information about a DbParameter used in the sql statement profiled by SqlTiming.
@@ -3309,13 +3064,38 @@
             How large the type is, e.g. for string, size could be 4000
             </summary>
         </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheAdd(System.String,System.Object)">
+            <summary>
+            Add value with specified key to the cache, and set the cache entry to never expire.
+            </summary>
+            <param name="key">Key associated with value.</param>
+            <param name="value">Value being cached.</param>
+            <returns></returns>
+        </member>
         <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheAdd(System.String,System.Object,System.DateTime)">
             <summary>
             Stores The value with key only if such key doesn't exist at the server yet. 
             </summary>
             <param name="key">The key.</param>
             <param name="value">The value.</param>
-            <param name="expiresAt">The expires at.</param>
+            <param name="expiresAt">The UTC DateTime at which the cache entry expires.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheSet(System.String,System.Object)">
+            <summary>
+            Adds or replaces the value with key, and sets the cache entry to never expire.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheSet(System.String,System.Object,System.DateTime)">
+            <summary>
+            Adds or replaces the value with key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <param name="expiresAt">The UTC DateTime at which the cache entry expires.</param>
             <returns></returns>
         </member>
         <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheSet(System.String,System.Object,System.DateTime,System.Nullable{System.Int64})">
@@ -3324,9 +3104,126 @@
             </summary>
             <param name="key">The key.</param>
             <param name="value">The value.</param>
-            <param name="expiresAt">The expires at.</param>
+            <param name="expiresAt">The UTC DateTime at which the cache entry expires.</param>
             <param name="checkLastModified">The check last modified.</param>
             <returns>True; if it succeeded</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheReplace(System.String,System.Object)">
+            <summary>
+            Replace the value with specified key if it exists, and set the cache entry to never expire.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value to be cached.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheReplace(System.String,System.Object,System.DateTime)">
+            <summary>
+            Replace the value with specified key if it exists.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value to be cached.</param>
+            <param name="expiresAt">The UTC DateTime at which the cache entry expires.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Add``1(System.String,``0)">
+            <summary>
+            Add the value with key to the cache, set to never expire.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <returns>True if Add succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Set``1(System.String,``0)">
+            <summary>
+            Add or replace the value with key to the cache, set to never expire.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <returns>True if Set succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Replace``1(System.String,``0)">
+            <summary>
+            Replace the value with key in the cache, set to never expire.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <returns>True if Replace succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Add``1(System.String,``0,System.DateTime)">
+            <summary>
+            Add the value with key to the cache, set to expire at specified DateTime.
+            </summary>
+            <remarks>This method examines the DateTimeKind of expiresAt to determine if conversion to
+            universal time is needed. The version of Add that takes a TimeSpan expiration is faster 
+            than using this method with a DateTime of Kind other than Utc, and is not affected by 
+            ambiguous local time during daylight savings/standard time transition.</remarks>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <param name="expiresAt">The DateTime at which the cache entry expires.</param>
+            <returns>True if Add succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Set``1(System.String,``0,System.DateTime)">
+            <summary>
+            Add or replace the value with key to the cache, set to expire at specified DateTime.
+            </summary>
+            <remarks>This method examines the DateTimeKind of expiresAt to determine if conversion to
+            universal time is needed. The version of Set that takes a TimeSpan expiration is faster 
+            than using this method with a DateTime of Kind other than Utc, and is not affected by 
+            ambiguous local time during daylight savings/standard time transition.</remarks>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <param name="expiresAt">The DateTime at which the cache entry expires.</param>
+            <returns>True if Set succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Replace``1(System.String,``0,System.DateTime)">
+            <summary>
+            Replace the value with key in the cache, set to expire at specified DateTime.
+            </summary>
+            <remarks>This method examines the DateTimeKind of expiresAt to determine if conversion to
+            universal time is needed. The version of Replace that takes a TimeSpan expiration is faster 
+            than using this method with a DateTime of Kind other than Utc, and is not affected by 
+            ambiguous local time during daylight savings/standard time transition.</remarks>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <param name="expiresAt">The DateTime at which the cache entry expires.</param>
+            <returns>True if Replace succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Add``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Add the value with key to the cache, set to expire after specified TimeSpan.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <param name="expiresIn">The TimeSpan at which the cache entry expires.</param>
+            <returns>True if Add succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Set``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Add or replace the value with key to the cache, set to expire after specified TimeSpan.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <param name="expiresIn">The TimeSpan at which the cache entry expires.</param>
+            <returns>True if Set succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.Replace``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Replace the value with key in the cache, set to expire after specified TimeSpan.
+            </summary>
+            <param name="key">The key of the cache entry.</param>
+            <param name="value">The value being cached.</param>
+            <param name="expiresIn">The TimeSpan at which the cache entry expires.</param>
+            <returns>True if Replace succeeds, otherwise false.</returns>
+        </member>
+        <member name="M:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheEntry.#ctor(System.Object,System.DateTime)">
+            <summary>
+            Create new instance of CacheEntry.
+            </summary>
+            <param name="value">The value being cached.</param>
+            <param name="expiresAt">The UTC time at which CacheEntry expires.</param>
+        </member>
+        <member name="P:ServiceStack.CacheAccess.Providers.MemoryCacheClient.CacheEntry.ExpiresAt">
+            <summary>UTC time at which CacheEntry expires.</summary>
         </member>
         <member name="M:ServiceStack.WebHost.Endpoints.Extensions.HttpResponseExtensions.WriteToResponse(ServiceStack.ServiceHost.IHttpResponse,System.Object,ServiceStack.ServiceHost.ResponseSerializerDelegate,ServiceStack.ServiceHost.IRequestContext,System.Byte[],System.Byte[])">
             <summary>
@@ -3341,6 +3238,12 @@
             <param name="bodySuffix">Add suffix to response body if any</param>
             <returns></returns>
         </member>
+        <member name="T:ServiceStack.ServiceHost.DefaultRequestAttribute">
+            <summary>
+            Lets you Register new Services and the optional restPaths will be registered against 
+            this default Request Type
+            </summary>
+        </member>
         <member name="M:ServiceStack.ServiceHost.ServiceManager.#ctor(Funq.Container,ServiceStack.ServiceHost.ServiceController)">
             <summary>
             Inject alternative container and strategy for resolving Service Types
@@ -3349,6 +3252,16 @@
         <member name="T:ServiceStack.ServiceHost.ServiceControllerReflection">
             <summary>
             Keeping around just to compare how slow it is
+            </summary>
+        </member>
+        <member name="T:ServiceStack.WebHost.Endpoints.ActionContext">
+            <summary>
+            Context to capture IService action
+            </summary>
+        </member>
+        <member name="T:ServiceStack.VirtualPath.InMemoryVirtualPathProvider">
+            <summary>
+            In Memory repository for files. Useful for testing.
             </summary>
         </member>
         <member name="T:ServiceStack.MiniProfiler.Helpers.ExtensionMethods">
