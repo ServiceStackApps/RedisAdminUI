@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using ServiceStack.Service;
+using ServiceStack.ServiceHost;
 using ServiceStack.WebHost.Endpoints;
 
 namespace RedisWebServices.Tests
@@ -20,7 +21,17 @@ namespace RedisWebServices.Tests
 			return (TResponse) appHostBase.ExecuteService(request);
 		}
 
-		public TResponse PostFile<TResponse>(string relativeOrAbsoluteUrl, FileInfo fileToUpload, string mimeType)
+	    public TResponse Send<TResponse>(IReturn<TResponse> request)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void Send(IReturnVoid request)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public TResponse PostFile<TResponse>(string relativeOrAbsoluteUrl, FileInfo fileToUpload, string mimeType)
 		{
 			throw new NotImplementedException();
 		}
