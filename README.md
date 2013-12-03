@@ -1,5 +1,5 @@
-[Join the new google group](http://groups.google.com/group/servicestack) or
-follow [@demisbellot](http://twitter.com/demisbellot) and [@ServiceStack](http://twitter.com/servicestack)
+[Join the new Google+ Community](https://plus.google.com/u/0/communities/112445368900682590445) or
+follow [@ServiceStack](http://twitter.com/servicestack)
 for twitter updates.
 
 #ServiceStack Redis Web Services including the Redis Admin UI
@@ -7,16 +7,16 @@ Included is a ServiceStack web service layer which provide JSON, XML, JSV and SO
 Just like the RedisAdminUI this allows you to fully manage your redis-server instance using javascript from a browser.
 
 ##Live Demo
-A live demo of the RedisAdminUI can be found here [http://servicestack.net/RedisAdminUI/AjaxClient/](http://servicestack.net/RedisAdminUI/AjaxClient/)
+A live demo of the RedisAdminUI can be found here [http://mono.servicestack.net/RedisAdminUI/AjaxClient/](http://mono.servicestack.net/RedisAdminUI/AjaxClient/)
 
-[![Demo Screenshot](http://www.servicestack.net/img/redisadmin-01.png)](http://servicestack.net/RedisAdminUI/AjaxClient)
+[![Demo Screenshot](http://mono.servicestack.net/img/redisadmin-01.png)](http://mono.servicestack.net/RedisAdminUI/AjaxClient)
 
-View the demos live list of the [available web services](http://www.servicestack.net/RedisAdminUI/redis/metadata).
+View the demos live list of the [available web services](http://mono.servicestack.net/RedisAdminUI/redis/metadata).
 
-[![API Screenshot](http://www.servicestack.net/img/redisadmin-02.png)](http://www.servicestack.net/RedisAdminUI/redis/metadata)
+[![API Screenshot](http://mono.servicestack.net/img/redisadmin-02.png)](http://mono.servicestack.net/RedisAdminUI/redis/metadata)
 
 #Download
-[ServiceStack.RedisWebServices/downloads](https://github.com/ServiceStack/ServiceStack.RedisWebServices/downloads)
+[ServiceStack.RedisWebServices/downloads](https://github.com/ServiceStackV3/ServiceStack.RedisWebServices/downloads)
 
 ##Troubleshooting
 Note: if running via XSP you will want to change the 'DefaultRedirectPath' to:
