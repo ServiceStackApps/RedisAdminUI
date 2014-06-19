@@ -1,0 +1,3 @@
+[submodule "src/RedisWebServices.Host/closure-library"]
+	path = src/RedisWebServices.Host/closure-library
+	url = https://github.com/google/closure-library/
