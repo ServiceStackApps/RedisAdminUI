@@ -24,7 +24,7 @@ namespace RedisWebServices.ServiceModel.Operations.List
 		}
 
 		[DataMember]
-		public int ItemsRemovedCount { get; set; }
+        public long ItemsRemovedCount { get; set; }
 
 		[DataMember]
 		public ResponseStatus ResponseStatus { get; set; }

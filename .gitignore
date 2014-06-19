@@ -36,3 +36,4 @@ _ReSharper*/
 App_Data/
 
 src/RedisWebServices.Host/closure-library/
+packages

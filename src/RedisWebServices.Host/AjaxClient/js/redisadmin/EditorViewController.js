@@ -100,7 +100,7 @@ redisadmin.EditorViewController.prototype.showKeyGroup = function(parentLabel, c
             goog.dom.getElement('keys-table').innerHTML = A.toTable(filteredRows, tableFormatFns);
         };
 
-        goog.events.listen(autoComplete, goog.ui.AutoComplete.EventType.UPDATE, filterFn);
+        goog.events.listen(autoComplete, goog.ui.ac.AutoComplete.EventType.UPDATE, filterFn);
 
         var btnKeyGroupFilter = goog.dom.getElement("btnKeyGroupFilter");
         var button = goog.ui.decorate(btnKeyGroupFilter);

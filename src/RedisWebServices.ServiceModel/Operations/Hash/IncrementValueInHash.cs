@@ -27,7 +27,7 @@ namespace RedisWebServices.ServiceModel.Operations.Hash
 		}
 
 		[DataMember]
-		public int Value { get; set; }
+        public long Value { get; set; }
 
 		[DataMember]
 		public ResponseStatus ResponseStatus { get; set; }

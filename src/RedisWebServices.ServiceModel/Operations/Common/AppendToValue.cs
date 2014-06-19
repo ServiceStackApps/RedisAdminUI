@@ -21,8 +21,8 @@ namespace RedisWebServices.ServiceModel.Operations.Common
 			this.ResponseStatus = new ResponseStatus();
 		}
 
-		[DataMember] 
-		public int ValueLength { get; set; }
+		[DataMember]
+        public long ValueLength { get; set; }
 
 		[DataMember]
 		public ResponseStatus ResponseStatus { get; set; }
