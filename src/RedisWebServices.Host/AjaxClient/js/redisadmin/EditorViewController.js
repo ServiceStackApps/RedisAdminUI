@@ -16,7 +16,7 @@ goog.require('goog.dom');
 goog.require('goog.style');
 
 goog.require('goog.ui.Component');
-goog.require('goog.ui.AutoComplete.Basic');
+goog.require('goog.ui.ac.AutoComplete');
 goog.require('goog.ui.Toolbar');
 goog.require('goog.ui.ToolbarButton');
 goog.require('goog.ui.ToolbarSeparator');
@@ -82,7 +82,7 @@ redisadmin.EditorViewController.prototype.showKeyGroup = function(parentLabel, c
         goog.dom.getElement($this.rootEl).innerHTML = html;
 
         var txtKeyGroupFilter = goog.dom.getElement('txtKeyGroupFilter');
-        var autoComplete = new goog.ui.AutoComplete.Basic(childKeys, txtKeyGroupFilter, false);
+        var autoComplete = new goog.ui.ac.AutoComplete(childKeys, txtKeyGroupFilter, false);
         autoComplete.setAllowFreeSelect(true);
         autoComplete.setAutoHilite(false);
 
