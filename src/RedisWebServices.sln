@@ -1,5 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisWebServices.DataSource.Northwind", "RedisWebServices.DataSource.Northwind\RedisWebServices.DataSource.Northwind.csproj", "{508FA67C-D7B3-4823-A26E-F6467C15B83A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedisWebServices.Host", "RedisWebServices.Host\RedisWebServices.Host.csproj", "{3A8D2349-6E97-47A2-AC49-EFE7D89C0344}"
