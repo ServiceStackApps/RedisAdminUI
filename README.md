@@ -8,7 +8,7 @@ Included is a ServiceStack web service layer which provide JSON, XML, JSV and SO
 
 ## Live Demo
 
-A live demo of the RedisAdminUI can be found here [http://redisadminui.servicestack.net/AjaxClient/](http://mono.servicestack.net/RedisAdminUI/AjaxClient/)
+A live demo of the RedisAdminUI can be found here [http://redisadminui.servicestack.net/AjaxClient/](http://redisadminui.servicestack.net/AjaxClient/)
 
 [![Demo Screenshot](https://github.com/ServiceStack/Assets/blob/master/img/apps/RedisAdminUI/home.png)](http://redisadminui.servicestack.net/AjaxClient)
 
