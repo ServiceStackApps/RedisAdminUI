@@ -14,7 +14,7 @@ A live demo of the RedisAdminUI can be found here [http://redisadminui.servicest
 
 View the demos live list of the [available web services](http://redisadminui.servicestack.net/redis/metadata).
 
-[![API Screenshot](Demo Screenshot](https://github.com/ServiceStack/Assets/blob/master/img/apps/RedisAdminUI/metadata.png)](http://redisadminui.servicestack.net/redis/metadata)
+[![API Screenshot](https://github.com/ServiceStack/Assets/blob/master/img/apps/RedisAdminUI/metadata.png)](http://redisadminui.servicestack.net/redis/metadata)
 
 ## Troubleshooting
 
