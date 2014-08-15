@@ -18,7 +18,7 @@
     <OldToolsVersion>4.0</OldToolsVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -188,9 +188,11 @@
     <Content Include="Global.asax" />
     <Content Include="Test.aspx" />
     <Content Include="packages.config" />
-    <None Include="Web.config">
+    <None Include="Properties\PublishProfiles\WebDeploy.pubxml" />
+    <Content Include="Web.config">
       <SubType>Designer</SubType>
-    </None>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
@@ -244,7 +246,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59436</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/RedisAdminUI</IISUrl>
+          <IISUrl>http://localhost:50001/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
