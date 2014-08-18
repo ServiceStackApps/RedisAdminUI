@@ -1,23 +1,14 @@
-[Join the new Google+ Community](https://plus.google.com/u/0/communities/112445368900682590445) or
-follow [@ServiceStack](http://twitter.com/servicestack)
-for twitter updates.
+## [Redis Admin UI](https://github.com/ServiceStackApps/RedisAdminUI)
 
-## ServiceStack Redis Web Services including the Redis Admin UI
+> Google Closure Admin UI and typed backend services API for redis-server operations
 
-Included is a ServiceStack web service layer which provide JSON, XML, JSV and SOAP 1.1/1.2 for all of Redis operations. Just like the RedisAdminUI this allows you to fully manage your redis-server instance using javascript from a browser.
+[![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redisadminui.png)](http://redisadminui.servicestack.net)
 
-## Live Demo
+#### Features
 
-A live demo of the RedisAdminUI can be found here [http://redisadminui.servicestack.net/AjaxClient/](http://redisadminui.servicestack.net/AjaxClient/)
+ - [Over 100+ Web Services](redisadminui.servicestack.net/redis/metadata)
+ - [ServiceStack.Redis C# Client](https://github.com/ServiceStack/ServiceStack.Redis)
 
-[![Demo Screenshot](https://github.com/ServiceStack/Assets/blob/master/img/apps/RedisAdminUI/home.png)](http://redisadminui.servicestack.net/AjaxClient)
+Try it out live at: [redisadminui.servicestack.net](http://redisadminui.servicestack.net)
 
-View the demos live list of the [available web services](http://redisadminui.servicestack.net/redis/metadata).
-
-[![API Screenshot](https://github.com/ServiceStack/Assets/blob/master/img/apps/RedisAdminUI/metadata.png)](http://redisadminui.servicestack.net/redis/metadata)
-
-## Troubleshooting
-
-Note: if running via XSP you will want to change the 'DefaultRedirectPath' to:
-
-    <add key="DefaultRedirectPath" value="AjaxClient/default.htm"/>
+Follow [@ServiceStack](http://twitter.com) or [+ServiceStack](https://plus.google.com/u/0/communities/112445368900682590445) for updates.
