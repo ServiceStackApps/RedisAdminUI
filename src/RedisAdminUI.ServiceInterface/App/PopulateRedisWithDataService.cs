@@ -5,15 +5,15 @@ using ServiceStack.Redis;
 
 namespace RedisAdminUI.ServiceInterface.App
 {
-	public class PopulateRedisWithDataService : RedisServiceBase
-	{
-		static PopulateRedisWithDataService()
-		{
-			NorthwindData.LoadData();
-		}
+    public class PopulateRedisWithDataService : RedisServiceBase
+    {
+        static PopulateRedisWithDataService()
+        {
+            NorthwindData.LoadData();
+        }
 
-		public object Any(PopulateRedisWithData request)
-		{
+        public object Any(PopulateRedisWithData request)
+        {
             Redis.StoreAll(NorthwindData.Categories);
             Redis.StoreAll(NorthwindData.Customers);
             Redis.StoreAll(NorthwindData.Employees);
@@ -28,25 +28,25 @@ namespace RedisAdminUI.ServiceInterface.App
 
             LoadDifferentKeyTypes(Redis);
 
-			return new PopulateRedisWithDataResponse();
-		}
+            return new PopulateRedisWithDataResponse();
+        }
 
-		protected void LoadDifferentKeyTypes(IRedisClient client)
-		{
-			var items = new List<string> { "one", "two", "three", "four" };
-			var map = new Dictionary<string, string> {
-						{"A","one"},
-						{"B","two"},
-						{"C","three"},
-						{"D","four"},
-					};
+        protected void LoadDifferentKeyTypes(IRedisClient client)
+        {
+            var items = new List<string> { "one", "two", "three", "four" };
+            var map = new Dictionary<string, string> {
+                        {"A","one"},
+                        {"B","two"},
+                        {"C","three"},
+                        {"D","four"},
+                    };
 
-			items.ForEach(x => Redis.Set("urn:testkeytypes:string:" + x, x));
-			items.ForEach(x => Redis.AddItemToList("urn:testkeytypes:list", x));
-			items.ForEach(x => Redis.AddItemToSet("urn:testkeytypes:set", x));
-			var i = 0;
-			items.ForEach(x => Redis.AddItemToSortedSet("urn:testkeytypes:zset", x, i++));
-			Redis.SetRangeInHash("urn:testkeytypes:hash", map);
-		}
-	}
+            items.ForEach(x => Redis.Set("urn:testkeytypes:string:" + x, x));
+            items.ForEach(x => Redis.AddItemToList("urn:testkeytypes:list", x));
+            items.ForEach(x => Redis.AddItemToSet("urn:testkeytypes:set", x));
+            var i = 0;
+            items.ForEach(x => Redis.AddItemToSortedSet("urn:testkeytypes:zset", x, i++));
+            Redis.SetRangeInHash("urn:testkeytypes:hash", map);
+        }
+    }
 }
