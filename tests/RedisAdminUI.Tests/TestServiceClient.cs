@@ -32,10 +32,35 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    public List<TResponse> SendAll<TResponse>(IEnumerable<IReturn<TResponse>> requests)
+	    {
+	        throw new NotImplementedException();
+	    }
+
 	    public TResponse PostFile<TResponse>(string relativeOrAbsoluteUrl, FileInfo fileToUpload, string mimeType)
 		{
 			throw new NotImplementedException();
 		}
+
+	    public void ClearCookies()
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public Dictionary<string, string> GetCookieValues()
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void SetCookie(string name, string value, TimeSpan? expiresIn = null)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    void IRestClient.Get(IReturnVoid request)
+	    {
+	        throw new NotImplementedException();
+	    }
 
 	    public HttpWebResponse Get(IReturnVoid request)
 	    {
@@ -67,6 +92,11 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    void IRestClient.Delete(IReturnVoid requestDto)
+	    {
+	        throw new NotImplementedException();
+	    }
+
 	    public HttpWebResponse Delete(IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
@@ -88,6 +118,11 @@ namespace RedisAdminUI.Tests
 	    }
 
 	    public TResponse Delete<TResponse>(string relativeOrAbsoluteUrl)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    void IRestClient.Post(IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
 	    }
@@ -117,6 +152,11 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    void IRestClient.Put(IReturnVoid requestDto)
+	    {
+	        throw new NotImplementedException();
+	    }
+
 	    public HttpWebResponse Put(IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
@@ -142,6 +182,11 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    void IRestClient.Patch(IReturnVoid requestDto)
+	    {
+	        throw new NotImplementedException();
+	    }
+
 	    public HttpWebResponse Patch(IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
@@ -163,6 +208,11 @@ namespace RedisAdminUI.Tests
 	    }
 
 	    public TResponse Patch<TResponse>(string relativeOrAbsoluteUrl, object requestDto)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    void IRestClient.CustomMethod(string httpVerb, IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
 	    }
@@ -239,7 +289,12 @@ namespace RedisAdminUI.Tests
 			appHostBase.ExecuteService(request);
 		}
 
-		public void SetCredentials(string userName, string password)
+	    public void SendAllOneWay(IEnumerable<object> requests)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void SetCredentials(string userName, string password)
 		{
 			throw new NotImplementedException();
 		}
@@ -257,6 +312,11 @@ namespace RedisAdminUI.Tests
 	    public Task<TResponse> GetAsync<TResponse>(string relativeOrAbsoluteUrl)
 	    {
 	        throw new NotImplementedException();
+	    }
+
+	    Task IRestClientAsync.GetAsync(IReturnVoid requestDto)
+	    {
+	        return GetAsync(requestDto);
 	    }
 
 	    public Task<HttpWebResponse> GetAsync(IReturnVoid requestDto)
@@ -279,6 +339,11 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    Task IRestClientAsync.DeleteAsync(IReturnVoid requestDto)
+	    {
+	        return DeleteAsync(requestDto);
+	    }
+
 	    public Task<HttpWebResponse> DeleteAsync(IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
@@ -297,6 +362,11 @@ namespace RedisAdminUI.Tests
 	    public Task<TResponse> PostAsync<TResponse>(string relativeOrAbsoluteUrl, object request)
 	    {
 	        throw new NotImplementedException();
+	    }
+
+	    Task IRestClientAsync.PostAsync(IReturnVoid requestDto)
+	    {
+	        return PostAsync(requestDto);
 	    }
 
 	    public Task<HttpWebResponse> PostAsync(IReturnVoid requestDto)
@@ -319,6 +389,11 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    Task IRestClientAsync.PutAsync(IReturnVoid requestDto)
+	    {
+	        return PutAsync(requestDto);
+	    }
+
 	    public Task<HttpWebResponse> PutAsync(IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
@@ -334,6 +409,16 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    Task IRestClientAsync.CustomMethodAsync(string httpVerb, IReturnVoid requestDto)
+	    {
+	        return CustomMethodAsync(httpVerb, requestDto);
+	    }
+
+	    public Task<TResponse> CustomMethodAsync<TResponse>(string httpVerb, string relativeOrAbsoluteUrl, object request)
+	    {
+	        throw new NotImplementedException();
+	    }
+
 	    public Task<HttpWebResponse> CustomMethodAsync(string httpVerb, IReturnVoid requestDto)
 	    {
 	        throw new NotImplementedException();
@@ -344,7 +429,17 @@ namespace RedisAdminUI.Tests
 	        throw new NotImplementedException();
 	    }
 
+	    public Task<TResponse> SendAsync<TResponse>(IReturn<TResponse> requestDto)
+	    {
+	        throw new NotImplementedException();
+	    }
+
 	    public Task<TResponse> SendAsync<TResponse>(object requestDto)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public Task<List<TResponse>> SendAllAsync<TResponse>(IEnumerable<IReturn<TResponse>> requests)
 	    {
 	        throw new NotImplementedException();
 	    }
@@ -379,5 +474,8 @@ namespace RedisAdminUI.Tests
 		public void Dispose()
 		{
 		}
+
+	    public string SessionId { get; set; }
+	    public int Version { get; set; }
 	}
 }

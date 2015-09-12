@@ -121,7 +121,7 @@ RedisClient.prototype =
 ");
 			var isFirst = true;
 
-            var allOperationTypes = HostContext.Metadata.GetAllTypes();
+            var allOperationTypes = HostContext.Metadata.GetAllOperationTypes();
 			for (int opIndex = 0; opIndex < allOperationTypes.Count; opIndex++)
 			{
 				var operationType = allOperationTypes[opIndex];

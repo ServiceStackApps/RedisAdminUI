@@ -20,7 +20,7 @@ namespace RedisAdminUI.ServiceModel.Operations.Common
 		}
 
 		[DataMember] 
-		public TimeSpan TimeRemaining { get; set; }
+		public TimeSpan? TimeRemaining { get; set; }
 
 		[DataMember]
 		public ResponseStatus ResponseStatus { get; set; }
