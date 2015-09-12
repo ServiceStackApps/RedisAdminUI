@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using RedisAdminUI.DataSource.Northwind;
 using RedisAdminUI.ServiceModel.Operations.App;
+using ServiceStack;
 using ServiceStack.Redis;
 
 namespace RedisAdminUI.ServiceInterface.App
@@ -21,32 +22,47 @@ namespace RedisAdminUI.ServiceInterface.App
             Redis.StoreAll(NorthwindData.Orders);
             Redis.StoreAll(NorthwindData.Products);
             Redis.StoreAll(NorthwindData.OrderDetails);
-            //Redis.StoreAll(NorthwindData.CustomerCustomerDemos);
             Redis.StoreAll(NorthwindData.Regions);
             Redis.StoreAll(NorthwindData.Territories);
             Redis.StoreAll(NorthwindData.EmployeeTerritories);
 
             LoadDifferentKeyTypes(Redis);
 
+            //Just load collections in DB 1
+            using (var redisDb1 = new RedisClient(Redis.Host, Redis.Port, db: 1))
+            {
+                LoadDifferentKeyTypes(redisDb1);
+            }
+
             return new PopulateRedisWithDataResponse();
         }
 
-        protected void LoadDifferentKeyTypes(IRedisClient client)
+        protected void LoadDifferentKeyTypes(IRedisClient redis)
         {
-            var items = new List<string> { "one", "two", "three", "four" };
-            var map = new Dictionary<string, string> {
-                        {"A","one"},
-                        {"B","two"},
-                        {"C","three"},
-                        {"D","four"},
-                    };
+            int A = 'A';
+            int Z = 'Z';
+            var letters = (Z - A + 1).Times(i => ((char)(i + A)).ToString());
+            var numbers = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
 
-            items.ForEach(x => Redis.Set("urn:testkeytypes:string:" + x, x));
-            items.ForEach(x => Redis.AddItemToList("urn:testkeytypes:list", x));
-            items.ForEach(x => Redis.AddItemToSet("urn:testkeytypes:set", x));
-            var i = 0;
-            items.ForEach(x => Redis.AddItemToSortedSet("urn:testkeytypes:zset", x, i++));
-            Redis.SetRangeInHash("urn:testkeytypes:hash", map);
+            var pos = 0;
+            letters.Each(x => redis.Set("string:letters/" + x, x));
+            numbers.Each(x => redis.Set("string:numbers/" + pos++, x));
+
+            letters.Each(x => redis.AddItemToList("list:letters", x));
+            numbers.Each(x => redis.AddItemToList("list:numbers", x));
+
+            letters.Each(x => redis.AddItemToSet("set:letters", x));
+            numbers.Each(x => redis.AddItemToSet("set:numbers", x));
+
+            pos = 0;
+            letters.Each(x => redis.AddItemToSortedSet("zset:letters", x, pos++));
+            pos = 0;
+            numbers.Each(x => redis.AddItemToSortedSet("zset:numbers", x, pos++));
+
+            pos = 0;
+            letters.Each(x => redis.SetEntryInHash("hash:letters", x, (pos++).ToString()));
+            pos = 0;
+            numbers.Each(x => redis.SetEntryInHash("hash:numbers", x, (pos++).ToString()));
         }
     }
 }
