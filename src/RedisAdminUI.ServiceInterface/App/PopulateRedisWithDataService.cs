@@ -26,7 +26,7 @@ namespace RedisAdminUI.ServiceInterface.App
             Redis.StoreAll(NorthwindData.Territories);
             Redis.StoreAll(NorthwindData.EmployeeTerritories);
 
-            LoadDifferentKeyTypes(Redis);
+            LoadBasicStrings(Redis);
 
             //Just load collections in DB 1
             using (var redisDb1 = new RedisClient(Redis.Host, Redis.Port, db: 1))
@@ -37,7 +37,7 @@ namespace RedisAdminUI.ServiceInterface.App
             return new PopulateRedisWithDataResponse();
         }
 
-        protected void LoadDifferentKeyTypes(IRedisClient redis)
+        protected void LoadBasicStrings(IRedisClient redis)
         {
             int A = 'A';
             int Z = 'Z';
@@ -47,14 +47,23 @@ namespace RedisAdminUI.ServiceInterface.App
             var pos = 0;
             letters.Each(x => redis.Set("string:letters/" + x, x));
             numbers.Each(x => redis.Set("string:numbers/" + pos++, x));
+        }
 
+        protected void LoadDifferentKeyTypes(IRedisClient redis)
+        {
+            int A = 'A';
+            int Z = 'Z';
+            var letters = (Z - A + 1).Times(i => ((char)(i + A)).ToString());
+            var numbers = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
+
+            redis.RemoveEntry("list:letters", "list:numbers"); //don't add duplicates to existing list
             letters.Each(x => redis.AddItemToList("list:letters", x));
             numbers.Each(x => redis.AddItemToList("list:numbers", x));
 
             letters.Each(x => redis.AddItemToSet("set:letters", x));
             numbers.Each(x => redis.AddItemToSet("set:numbers", x));
 
-            pos = 0;
+            var pos = 0;
             letters.Each(x => redis.AddItemToSortedSet("zset:letters", x, pos++));
             pos = 0;
             numbers.Each(x => redis.AddItemToSortedSet("zset:numbers", x, pos++));
