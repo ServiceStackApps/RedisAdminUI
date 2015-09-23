@@ -14,7 +14,7 @@ The Redis React App has been packaged for multiple platforms inc. the ASP.NET Li
 
 [![](https://raw.githubusercontent.com/ServiceStack/Assets/master/img/livedemos/redis-react/home.png)](http://redisreact.servicestack.net/#/)
 
-## Downloads for Windows, OSX and Linux available from [Redis React Home Page](https://servicestack.net/redis-react)
+### Downloads for Windows, OSX and Linux available from [Redis React Home Page](https://servicestack.net/redis-react)
 
 ----
 
