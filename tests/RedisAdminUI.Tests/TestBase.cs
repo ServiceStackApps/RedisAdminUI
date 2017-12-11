@@ -35,7 +35,7 @@ namespace RedisWebServices.Tests
 			TestConfig = new TestConfig(new AppSettings());
 		}
 
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public virtual void TestFixtureSetUp()
 		{
 			this.ServiceClient = !TestConfig.RunIntegrationTests

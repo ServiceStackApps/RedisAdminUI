@@ -6,7 +6,7 @@ namespace RedisAdminUI.ServiceInterface.Common
 	{
 		public object Any(SetEntry request)
 		{
-			Redis.SetEntry(request.Key, request.Value);
+			Redis.SetValue(request.Key, request.Value);
 			
 			return new SetEntryResponse();
 		}

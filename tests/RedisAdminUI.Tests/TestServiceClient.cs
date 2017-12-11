@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using ServiceStack;
 
@@ -20,6 +21,21 @@ namespace RedisAdminUI.Tests
         public TResponse Send<TResponse>(object request)
         {
             return (TResponse)appHostBase.ExecuteService(request);
+        }
+
+        public List<TResponse> SendAll<TResponse>(IEnumerable<object> requestDtos)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Publish(object requestDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void PublishAll(IEnumerable<object> requestDtos)
+        {
+            throw new NotImplementedException();
         }
 
         public TResponse Send<TResponse>(IReturn<TResponse> request)
@@ -217,6 +233,11 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
+        public TResponse Send<TResponse>(string httpMethod, string relativeOrAbsoluteUrl, object request)
+        {
+            throw new NotImplementedException();
+        }
+
         void IRestClient.CustomMethod(string httpVerb, IReturnVoid requestDto)
         {
             throw new NotImplementedException();
@@ -270,6 +291,16 @@ namespace RedisAdminUI.Tests
 
         public TResponse PostFileWithRequest<TResponse>(string relativeOrAbsoluteUrl, Stream fileToUpload, string fileName,
                                                         object request, string fieldName = "upload")
+        {
+            throw new NotImplementedException();
+        }
+
+        public TResponse PostFilesWithRequest<TResponse>(object request, IEnumerable<UploadFile> files)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TResponse PostFilesWithRequest<TResponse>(string relativeOrAbsoluteUrl, object request, IEnumerable<UploadFile> files)
         {
             throw new NotImplementedException();
         }
@@ -399,6 +430,12 @@ namespace RedisAdminUI.Tests
             return PutAsync(requestDto);
         }
 
+        public Task<TResponse> SendAsync<TResponse>(string httpMethod, string absoluteUrl, object request,
+            CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<HttpWebResponse> PutAsync(IReturnVoid requestDto)
         {
             throw new NotImplementedException();
@@ -481,6 +518,27 @@ namespace RedisAdminUI.Tests
         }
 
         public string SessionId { get; set; }
+
         public int Version { get; set; }
+
+        public Task<TResponse> SendAsync<TResponse>(object requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<TResponse>> SendAllAsync<TResponse>(IEnumerable<object> requestDtos, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PublishAsync(object requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PublishAllAsync(IEnumerable<object> requestDtos, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace RedisAdminUI.ServiceInterface.Common
 		{
 			return new GetAndSetEntryResponse
 			{
-				ExistingValue = Redis.GetAndSetEntry(request.Key, request.Value)
+				ExistingValue = Redis.GetAndSetValue(request.Key, request.Value)
 			};
 		}
 	}

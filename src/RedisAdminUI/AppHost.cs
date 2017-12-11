@@ -2,8 +2,6 @@
 using Funq;
 using RedisAdminUI.ServiceInterface;
 using RedisAdminUI.ServiceInterface.Admin;
-using RedisAdminUI.ServiceInterface;
-using RedisAdminUI.ServiceInterface.Admin;
 using ServiceStack;
 using ServiceStack.Configuration;
 using ServiceStack.Logging;

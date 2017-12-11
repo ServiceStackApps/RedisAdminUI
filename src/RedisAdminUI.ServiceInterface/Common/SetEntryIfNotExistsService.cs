@@ -8,7 +8,7 @@ namespace RedisAdminUI.ServiceInterface.Common
 		{
 			return new SetEntryIfNotExistsResponse
        		{
-				Result = Redis.SetEntryIfNotExists(request.Key, request.Value)
+				Result = Redis.SetValueIfNotExists(request.Key, request.Value)
        		};
 		}
 	}

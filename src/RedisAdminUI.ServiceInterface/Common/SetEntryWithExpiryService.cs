@@ -6,7 +6,7 @@ namespace RedisAdminUI.ServiceInterface.Common
 	{
 		public object Any(SetEntryWithExpiry request)
 		{
-			Redis.SetEntry(request.Key, request.Value, request.ExpireIn);
+			Redis.SetValue(request.Key, request.Value, request.ExpireIn);
 			
 			return new SetEntryWithExpiryResponse();
 		}
