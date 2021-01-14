@@ -78,11 +78,6 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
-        void IRestClient.Get(IReturnVoid request)
-        {
-            throw new NotImplementedException();
-        }
-
         public HttpWebResponse Get(IReturnVoid request)
         {
             throw new NotImplementedException();
@@ -103,17 +98,17 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
+        void IRestClientSync.Get(IReturnVoid requestDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public TResponse Get<TResponse>(string relativeOrAbsoluteUrl)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<TResponse> GetLazy<TResponse>(IReturn<QueryResponse<TResponse>> queryDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IRestClient.Delete(IReturnVoid requestDto)
         {
             throw new NotImplementedException();
         }
@@ -138,12 +133,12 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
-        public TResponse Delete<TResponse>(string relativeOrAbsoluteUrl)
+        void IRestClientSync.Delete(IReturnVoid requestDto)
         {
             throw new NotImplementedException();
         }
 
-        void IRestClient.Post(IReturnVoid requestDto)
+        public TResponse Delete<TResponse>(string relativeOrAbsoluteUrl)
         {
             throw new NotImplementedException();
         }
@@ -168,12 +163,12 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
-        public TResponse Post<TResponse>(string relativeOrAbsoluteUrl, object request)
+        void IRestClientSync.Post(IReturnVoid requestDto)
         {
             throw new NotImplementedException();
         }
 
-        void IRestClient.Put(IReturnVoid requestDto)
+        public TResponse Post<TResponse>(string relativeOrAbsoluteUrl, object request)
         {
             throw new NotImplementedException();
         }
@@ -198,12 +193,12 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
-        public TResponse Put<TResponse>(string relativeOrAbsoluteUrl, object requestDto)
+        void IRestClientSync.Put(IReturnVoid requestDto)
         {
             throw new NotImplementedException();
         }
 
-        void IRestClient.Patch(IReturnVoid requestDto)
+        public TResponse Put<TResponse>(string relativeOrAbsoluteUrl, object requestDto)
         {
             throw new NotImplementedException();
         }
@@ -228,17 +223,17 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
+        void IRestClientSync.Patch(IReturnVoid requestDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public TResponse Patch<TResponse>(string relativeOrAbsoluteUrl, object requestDto)
         {
             throw new NotImplementedException();
         }
 
         public TResponse Send<TResponse>(string httpMethod, string relativeOrAbsoluteUrl, object request)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IRestClient.CustomMethod(string httpVerb, IReturnVoid requestDto)
         {
             throw new NotImplementedException();
         }
@@ -259,6 +254,11 @@ namespace RedisAdminUI.Tests
         }
 
         public TResponse CustomMethod<TResponse>(string httpVerb, object requestDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        void IRestClientSync.CustomMethod(string httpVerb, IReturnVoid requestDto)
         {
             throw new NotImplementedException();
         }
@@ -350,11 +350,6 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
-        Task IRestClientAsync.GetAsync(IReturnVoid requestDto)
-        {
-            return GetAsync(requestDto);
-        }
-
         public Task<HttpWebResponse> GetAsync(IReturnVoid requestDto)
         {
             throw new NotImplementedException();
@@ -373,11 +368,6 @@ namespace RedisAdminUI.Tests
         public Task<TResponse> DeleteAsync<TResponse>(string relativeOrAbsoluteUrl)
         {
             throw new NotImplementedException();
-        }
-
-        Task IRestClientAsync.DeleteAsync(IReturnVoid requestDto)
-        {
-            return DeleteAsync(requestDto);
         }
 
         public Task<HttpWebResponse> DeleteAsync(IReturnVoid requestDto)
@@ -400,11 +390,6 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
-        Task IRestClientAsync.PostAsync(IReturnVoid requestDto)
-        {
-            return PostAsync(requestDto);
-        }
-
         public Task<HttpWebResponse> PostAsync(IReturnVoid requestDto)
         {
             throw new NotImplementedException();
@@ -425,9 +410,32 @@ namespace RedisAdminUI.Tests
             throw new NotImplementedException();
         }
 
-        Task IRestClientAsync.PutAsync(IReturnVoid requestDto)
+        public Task<TResponse> GetAsync<TResponse>(string relativeOrAbsoluteUrl, CancellationToken token = new CancellationToken())
         {
-            return PutAsync(requestDto);
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> DeleteAsync<TResponse>(string relativeOrAbsoluteUrl, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PostAsync<TResponse>(string relativeOrAbsoluteUrl, object request,
+            CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PutAsync<TResponse>(string relativeOrAbsoluteUrl, object request,
+            CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> CustomMethodAsync<TResponse>(string httpVerb, string relativeOrAbsoluteUrl, object request,
+            CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
         }
 
         public Task<TResponse> SendAsync<TResponse>(string httpMethod, string absoluteUrl, object request,
@@ -449,11 +457,6 @@ namespace RedisAdminUI.Tests
         public Task<TResponse> CustomMethodAsync<TResponse>(string httpVerb, object requestDto)
         {
             throw new NotImplementedException();
-        }
-
-        Task IRestClientAsync.CustomMethodAsync(string httpVerb, IReturnVoid requestDto)
-        {
-            return CustomMethodAsync(httpVerb, requestDto);
         }
 
         public Task<TResponse> CustomMethodAsync<TResponse>(string httpVerb, string relativeOrAbsoluteUrl, object request)
@@ -540,5 +543,99 @@ namespace RedisAdminUI.Tests
         {
             throw new NotImplementedException();
         }
+
+        public Task<TResponse> GetAsync<TResponse>(IReturn<TResponse> requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> GetAsync<TResponse>(object requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task GetAsync(IReturnVoid requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> DeleteAsync<TResponse>(IReturn<TResponse> requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> DeleteAsync<TResponse>(object requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(IReturnVoid requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PostAsync<TResponse>(IReturn<TResponse> requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PostAsync<TResponse>(object requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PostAsync(IReturnVoid requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PutAsync<TResponse>(IReturn<TResponse> requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PutAsync<TResponse>(object requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PutAsync(IReturnVoid requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PatchAsync<TResponse>(IReturn<TResponse> requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> PatchAsync<TResponse>(object requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PatchAsync(IReturnVoid requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> CustomMethodAsync<TResponse>(string httpVerb, IReturn<TResponse> requestDto,
+            CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TResponse> CustomMethodAsync<TResponse>(string httpVerb, object requestDto,
+            CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task CustomMethodAsync(string httpVerb, IReturnVoid requestDto, CancellationToken token = new CancellationToken())
+        {
+            throw new NotImplementedException();
+        }
+
+        public string BearerToken { get; set; }
     }
 }
