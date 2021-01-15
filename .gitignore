@@ -2,6 +2,7 @@
 [Bb]in/
 [Oo]bj/
 .idea/
+.vs/
 
 # mstest test results
 TestResults
@@ -13,7 +14,7 @@ TestResults
 *.suo
 *.user
 *.sln.docstates
-.vs/
+*.secrets.cs
 
 # Build results
 [Dd]ebug/
@@ -101,6 +102,7 @@ ClientBin
 [Ss]tyle[Cc]op.*
 ~$*
 *.dbmdl
+
 Generated_Code #added for RIA/Silverlight projects
 
 # Backup & report files from converting an old project file to a newer
@@ -116,5 +118,3 @@ ssl/
 results/
 teststub.*
 *.sqlite
-
-src/RedisAdminUI/closure-library/
